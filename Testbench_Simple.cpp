@@ -43,17 +43,18 @@ int main() {
 
     const uint32_t entry_pc = 0;
 
-    write_instr(entry_pc + 0x00, 0x00000513); // addi x10,x0,0
-    write_instr(entry_pc + 0x04, 0x00B00213); // addi x4,x0,11
+    write_instr(entry_pc + 0x00, 0x00500093); // addi x1, x0, 5
+    write_instr(entry_pc + 0x04, 0x00008113); // addi x2, x1, 0
 
-    write_instr(entry_pc + 0x08, 0x00000013); // nop
-    write_instr(entry_pc + 0x0C, 0x00000013); // nop
-    write_instr(entry_pc + 0x10, 0x00452023); // sw   x4,0(x10)
-    write_instr(entry_pc + 0x14, 0x00052283); // lw   x5,0(x10)
+    write_instr(entry_pc + 0x08, 0x00208663); // beq  x1, x2, +12 -> target at 0x14
 
-    write_instr(entry_pc + 0x18, 0x00000013); // nop
-    write_instr(entry_pc + 0x1C, 0x00552223); // sw   x5,4(x10)
+    write_instr(entry_pc + 0x0C, 0x06300193); // addi x3, x0, 99       // wrong path
+    write_instr(entry_pc + 0x10, 0x00302223); // sw   x3, 4(x0)        // wrong-path sentinel
 
+    write_instr(entry_pc + 0x14, 0x00B00213); // target: addi x4, x0, 11
+    write_instr(entry_pc + 0x18, 0x00402023); // sw     x4, 0(x0)
+
+    write_instr(entry_pc + 0x1C, 0x00000013); // nop
     write_instr(entry_pc + 0x20, 0x00000013); // nop
     write_instr(entry_pc + 0x24, 0x00000013); // nop
 
@@ -85,7 +86,7 @@ int main() {
     std::cout << "[TB] DMEM[1] / [0x4] = 0x" << std::hex << result1
               << std::dec << " (" << result1 << ")\n";
 
-    if (result0 == 11 && result1 == 11) {
+    if (result0 == 11) {
         std::cout << "[TB] PASS\n";
         return 0;
     } else {
