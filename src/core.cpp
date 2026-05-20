@@ -1175,6 +1175,21 @@ static bool decode_has_hazard(const IFIDReg& if_id,
     bool need_rs2 = uses_rs2(h.opcode) && (h.rs2 != 0);
 
     if (id_ex.valid && id_ex.data.rd != 0) {
+        bool depends_on_idex =
+            (need_rs1 && h.rs1 == id_ex.data.rd) ||
+            (need_rs2 && h.rs2 == id_ex.data.rd);
+
+#if ENABLE_FORWARDING
+        // With forwarding, only true load-use hazards need to stall here.
+        // ALU-style results in ID/EX will be available from EX/MEM
+        // when the dependent instruction reaches execute.
+        bool idex_is_load = (id_ex.data.opcode == 0x03);
+
+        if (depends_on_idex && idex_is_load) {
+            return true;
+        }
+#else
+        // Without forwarding, any dependency on an ID/EX producer must stall.
         bool ex_writes = false;
 
         switch ((unsigned)id_ex.data.opcode) {
@@ -1194,10 +1209,10 @@ static bool decode_has_hazard(const IFIDReg& if_id,
                 break;
         }
 
-        if (ex_writes) {
-            if (need_rs1 && h.rs1 == id_ex.data.rd) return true;
-            if (need_rs2 && h.rs2 == id_ex.data.rd) return true;
+        if (depends_on_idex && ex_writes) {
+            return true;
         }
+#endif
     }
 
     if (ex_mem.valid && ex_mem.data.reg_write && ex_mem.data.rd != 0) {
