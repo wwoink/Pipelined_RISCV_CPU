@@ -23,6 +23,7 @@ const bool ENABLE_M_EXTENSION = true;
 const bool ENABLE_A_EXTENSION = true; // Toggle for Atomics
 
 #define ENABLE_FORWARDING 1
+#define EXIT_ON_TRAP 0
 
 // ------------------------------------------------------------
 // Inter-Stage Data Structs
@@ -80,7 +81,17 @@ struct MemOut {
 static unsigned addr_to_idx(unsigned byte_addr) {
     #pragma HLS INLINE
     #if ZERO_BASE_TEST
-        return byte_addr >> 2;
+        // Zero-base bring-up mode:
+        //   0x00000000 -> index 0
+        //   0x80000000 -> index 0
+        //
+        // This lets directed zero-base tests and ELF-generated
+        // absolute DRAM addresses both work in the same test mode.
+        if (byte_addr >= DRAM_BASE) {
+            return (byte_addr - DRAM_BASE) >> 2;
+        } else {
+            return byte_addr >> 2;
+        }
     #else
         #ifdef __SYNTHESIS__
             return byte_addr >> 2;
@@ -1328,14 +1339,18 @@ void riscv_step(volatile uint32_t* imem, volatile uint32_t* dmem,
 
         // =====================================================
         // 3. NEXT-PC LOGIC
-        //    For first version: only branch on EX result
+        //    Branch/JAL/JALR/trap redirects are resolved from
+        //    the execute result produced in this cycle.
         // =====================================================
-        if (ex_mem.valid && ex_mem.data.branch_taken) {
-            next_pc = ex_mem.data.next_pc;
+        if (next_ex_mem.valid && next_ex_mem.data.branch_taken) {
+            next_pc = next_ex_mem.data.next_pc;
 
-            // flush younger instructions
+            // Flush instructions younger than the redirecting instruction.
+            // The redirecting instruction itself remains in next_ex_mem.
             next_if_id = make_ifid_bubble();
             next_id_ex = make_idex_bubble();
+
+            next_ex_mem.data.branch_taken = false;
         }
 
         // =====================================================
@@ -1351,7 +1366,13 @@ void riscv_step(volatile uint32_t* imem, volatile uint32_t* dmem,
         // =====================================================
         // 5. EXIT CHECK
         // =====================================================
-        if ((mem_wb.valid && mem_wb.data.is_trap) ||
+#if EXIT_ON_TRAP
+        bool trap_exit = mem_wb.valid && mem_wb.data.is_trap;
+#else
+        bool trap_exit = false;
+#endif
+
+        if (trap_exit ||
             (max_cycles > 0 && (int)(ap_uint<32>)csr_mcycle >= max_cycles)) {
             *cycles_output = (int)(ap_uint<32>)csr_mcycle;
             return;
