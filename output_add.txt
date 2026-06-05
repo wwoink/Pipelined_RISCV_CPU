@@ -1,0 +1,3251 @@
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+vitis-run.bat --mode hls --csim --config I:\Vitis_Files\Pipeline_Tests\Pipelined_Core\hls_config.cfg --work_dir Pipelined_Core
+****** vitis-run v2025.1 (64-bit)
+  **** Start of session at: Wed May 20 16:38:07 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+  **** HLS Build v2025.1 6135595
+INFO: [HLS 200-2005] Using work_dir I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/Pipelined_Core 
+INFO: [HLS 200-2176] Writing Vitis IDE component file I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/Pipelined_Core/vitis-comp.json
+INFO: [HLS 200-10] Creating and opening component 'I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/Pipelined_Core'.
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+INFO: [HLS 200-2174] Applying component config ini file I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg
+INFO: [HLS 200-1465] Applying config ini 'syn.file=./src/core.cpp' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(11)
+INFO: [HLS 200-10] Adding design file 'I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/src/core.cpp' to the project
+INFO: [HLS 200-1465] Applying config ini 'syn.cflags=-I ./include' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(8)
+INFO: [HLS 200-1465] Applying config ini 'syn.csimflags=-I ./include' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(9)
+INFO: [HLS 200-1465] Applying config ini 'tb.file=./Testbench_HardCoded.cpp' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(17)
+INFO: [HLS 200-10] Adding test bench file 'I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/Testbench_HardCoded.cpp' to the project
+INFO: [HLS 200-1465] Applying config ini 'tb.cflags=-I ./include' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(10)
+INFO: [HLS 200-1465] Applying config ini 'syn.top=riscv_step' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(13)
+INFO: [HLS 200-1465] Applying config ini 'flow_target=vivado' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(4)
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see docs.xilinx.com/access/sources/dita/topic?Doc_Version=2025.1%20English&url=ug1448-hls-guidance&resourceid=200-1505.html
+INFO: [HLS 200-1465] Applying config ini 'part=xcku5p-ffvb676-2-e' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(1)
+INFO: [HLS 200-1611] Setting target device to 'xcku5p-ffvb676-2-e'
+INFO: [HLS 200-1465] Applying config ini 'clock=5ns' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(7)
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 5ns.
+INFO: [HLS 200-1465] Applying config ini 'cosim.disable_deadlock_detection=0' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(14)
+INFO: [HLS 200-1465] Applying config ini 'cosim.trace_level=none' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(15)
+INFO: [HLS 200-1465] Applying config ini 'csim.clean=1' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(12)
+INFO: [HLS 200-1465] Applying config ini 'package.output.format=ip_catalog' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(5)
+INFO: [HLS 200-1465] Applying config ini 'vivado.flow=impl' from I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/hls_config.cfg(16)
+INFO: [HLS 200-2176] Writing Vitis IDE component file I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/Pipelined_Core/vitis-comp.json
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch CLANG as the compiler.
+INFO: [HLS 200-2036] Building debug C Simulation binaries
+   Compiling ../../../../Testbench_HardCoded.cpp in debug mode
+   Generating csim.exe
+In file included from ../../../../Testbench_HardCoded.cpp:12:
+In file included from C:/Xilinx/2025.1/Vitis/include/ap_int.h:10:
+In file included from C:/Xilinx/2025.1/Vitis/include/etc/ap_common.h:677:
+In file included from C:/Xilinx/2025.1/Vitis/include/etc/ap_private.h:68:
+In file included from C:/Xilinx/2025.1/Vitis/include/hls_half.h:26:
+In file included from C:/Xilinx/2025.1/Vitis/include/etc/hls_half_fpo.h:19:
+In file included from C:/Xilinx/2025.1/Vitis/include/hls_fpo.h:140:
+In file included from C:/Xilinx/2025.1/Vitis/include/floating_point_v7_1_bitacc_cmodel.h:150:
+C:/Xilinx/2025.1/Vitis/include/gmp.h:58:9: warning: '__GMP_LIBGMP_DLL' macro redefined [-Wmacro-redefined]
+#define __GMP_LIBGMP_DLL  0
+        ^
+C:/Xilinx/2025.1/Vitis/include/floating_point_v7_1_bitacc_cmodel.h:142:9: note: previous definition is here
+#define __GMP_LIBGMP_DLL 1
+        ^
+1 warning generated.
+In file included from ../../../../src/core.cpp:1:
+In file included from C:/Xilinx/2025.1/Vitis/include/ap_int.h:10:
+In file included from C:/Xilinx/2025.1/Vitis/include/etc/ap_common.h:677:
+In file included from C:/Xilinx/2025.1/Vitis/include/etc/ap_private.h:68:
+In file included from C:/Xilinx/2025.1/Vitis/include/hls_half.h:26:
+In file included from C:/Xilinx/2025.1/Vitis/include/etc/hls_half_fpo.h:19:
+In file included from C:/Xilinx/2025.1/Vitis/include/hls_fpo.h:140:
+In file included from C:/Xilinx/2025.1/Vitis/include/floating_point_v7_1_bitacc_cmodel.h:150:
+C:/Xilinx/2025.1/Vitis/include/gmp.h:58:9: warning: '__GMP_LIBGMP_DLL' macro redefined [-Wmacro-redefined]
+#define __GMP_LIBGMP_DLL  0
+        ^
+C:/Xilinx/2025.1/Vitis/include/floating_point_v7_1_bitacc_cmodel.h:142:9: note: previous definition is here
+#define __GMP_LIBGMP_DLL 1
+        ^
+1 warning generated.
+[TESTBENCH] Loading ELF: I:/Vitis_Files/Pipeline_Tests/Pipelined_Core/Benchmarks/rv32ui-p/rv32ui-p-add
+[TESTBENCH] ELF entry PC       = 0x80000000
+[TESTBENCH] Zero-base entry PC = 0x0
+[TESTBENCH] Detected .tohost at 0x80001000 (Index 1024)
+[TESTBENCH] Initializing Core...
+[INIT] Core Reset. PC=0x0, SP=0x87ffffff
+[TESTBENCH] Starting Simulation...
+------------------------------------------------------------
+[FETCH] PC=0x0 Instr=0x500006f
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4 Instr=0x34202f73
+[EXEC] ALU=0x4
+[DECODE] Opcode=0x73 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x8 Instr=0x800f93
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1f
+------------------------------------------------------------
+[FETCH] PC=0xc Instr=0x3ff0863
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x5c Instr=0x213
+[WB] x1 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x60 Instr=0x293
+[WB] x2 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x64 Instr=0x313
+[WB] x3 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=6
+------------------------------------------------------------
+[FETCH] PC=0x68 Instr=0x393
+[WB] x4 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x6c Instr=0x413
+[WB] x5 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=8
+------------------------------------------------------------
+[FETCH] PC=0x70 Instr=0x493
+[WB] x6 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=9
+------------------------------------------------------------
+[FETCH] PC=0x74 Instr=0x513
+[WB] x7 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=a
+------------------------------------------------------------
+[FETCH] PC=0x78 Instr=0x593
+[WB] x8 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x7c Instr=0x613
+[WB] x9 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x80 Instr=0x693
+[WB] x10 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=d
+------------------------------------------------------------
+[FETCH] PC=0x84 Instr=0x713
+[WB] x11 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x88 Instr=0x793
+[WB] x12 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=f
+------------------------------------------------------------
+[FETCH] PC=0x8c Instr=0x813
+[WB] x13 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=10
+------------------------------------------------------------
+[FETCH] PC=0x90 Instr=0x893
+[WB] x14 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=11
+------------------------------------------------------------
+[FETCH] PC=0x94 Instr=0x913
+[WB] x15 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=12
+------------------------------------------------------------
+[FETCH] PC=0x98 Instr=0x993
+[WB] x16 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=13
+------------------------------------------------------------
+[FETCH] PC=0x9c Instr=0xa13
+[WB] x17 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=14
+------------------------------------------------------------
+[FETCH] PC=0xa0 Instr=0xa93
+[WB] x18 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=15
+------------------------------------------------------------
+[FETCH] PC=0xa4 Instr=0xb13
+[WB] x19 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=16
+------------------------------------------------------------
+[FETCH] PC=0xa8 Instr=0xb93
+[WB] x20 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=17
+------------------------------------------------------------
+[FETCH] PC=0xac Instr=0xc13
+[WB] x21 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=18
+------------------------------------------------------------
+[FETCH] PC=0xb0 Instr=0xc93
+[WB] x22 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=19
+------------------------------------------------------------
+[FETCH] PC=0xb4 Instr=0xd13
+[WB] x23 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1a
+------------------------------------------------------------
+[FETCH] PC=0xb8 Instr=0xd93
+[WB] x24 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1b
+------------------------------------------------------------
+[FETCH] PC=0xbc Instr=0xe13
+[WB] x25 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1c
+------------------------------------------------------------
+[FETCH] PC=0xc0 Instr=0xe93
+[WB] x26 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1d
+------------------------------------------------------------
+[FETCH] PC=0xc4 Instr=0xf13
+[WB] x27 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0xc8 Instr=0xf93
+[WB] x28 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1f
+------------------------------------------------------------
+[FETCH] PC=0xcc Instr=0xf1402573
+[WB] x29 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x73 Rd=a
+------------------------------------------------------------
+[FETCH] PC=0xd0 Instr=0x51063
+[WB] x30 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x63 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0xd4 Instr=0x297
+[WB] x31 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x17 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0xd8 Instr=0x1028293
+[WB] x10 <= 0x0
+[EXEC] ALU=0xd4
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0xdc Instr=0x30529073
+[EXEC] ALU=0xe4
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0xe0 Instr=0x74445073
+[WB] x5 <= 0xd4
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0xe4 Instr=0x297
+[WB] x5 <= 0xe4
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x17 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0xe8 Instr=0x1028293
+[EXEC] ALU=0xe4
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0xec Instr=0x30529073
+[EXEC] ALU=0xf4
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0xf0 Instr=0x18005073
+[WB] x5 <= 0xe4
+[EXEC] ALU=0xe4
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0xf4 Instr=0x297
+[WB] x5 <= 0xf4
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x17 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0xf8 Instr=0x2028293
+[EXEC] ALU=0xf4
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0xfc Instr=0x30529073
+[EXEC] ALU=0x114
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x100 Instr=0x800002b7
+[WB] x5 <= 0xf4
+[EXEC] ALU=0xf4
+[DECODE] Opcode=0x37 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x104 Instr=0xfff28293
+[WB] x5 <= 0x114
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x108 Instr=0x3b029073
+[EXEC] ALU=0x7fffffff
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x10c Instr=0x1f00293
+[WB] x5 <= 0x80000000
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x110 Instr=0x3a029073
+[WB] x5 <= 0x7fffffff
+[EXEC] ALU=0x1f
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x114 Instr=0x30405073
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x118 Instr=0x297
+[WB] x5 <= 0x1f
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x17 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x11c Instr=0x1428293
+[EXEC] ALU=0x118
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x120 Instr=0x30529073
+[EXEC] ALU=0x12c
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x124 Instr=0x30205073
+[WB] x5 <= 0x118
+[EXEC] ALU=0x114
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x128 Instr=0x30305073
+[WB] x5 <= 0x12c
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x12c Instr=0x193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x130 Instr=0x297
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x17 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x134 Instr=0xed428293
+[EXEC] ALU=0x130
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x138 Instr=0x30529073
+[WB] x3 <= 0x0
+[EXEC] ALU=0x4
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x13c Instr=0x100513
+[WB] x5 <= 0x130
+[EXEC] ALU=0x12c
+[DECODE] Opcode=0x13 Rd=a
+------------------------------------------------------------
+[FETCH] PC=0x140 Instr=0x1f51513
+[WB] x5 <= 0x4
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=a
+------------------------------------------------------------
+[FETCH] PC=0x144 Instr=0x54c63
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x63 Rd=18
+------------------------------------------------------------
+[FETCH] PC=0x148 Instr=0xff0000f
+[WB] x10 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0xf Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x14c Instr=0x100193
+[WB] x10 <= 0x80000000
+[FENCE] Memory Barrier
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x150 Instr=0x5d00893
+------------------------------------------------------------
+[FETCH] PC=0x15c Instr=0x293
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x160 Instr=0x28a63
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x63 Rd=14
+------------------------------------------------------------
+[FETCH] PC=0x164 Instr=0x10529073
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x168 Instr=0xb2b7
+[WB] x5 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x37 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x16c Instr=0x10928293
+------------------------------------------------------------
+[FETCH] PC=0x174 Instr=0x30005073
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x178 Instr=0x297
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x17 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x17c Instr=0x1428293
+[EXEC] ALU=0x178
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x180 Instr=0x34129073
+[EXEC] ALU=0x18c
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x184 Instr=0xf1402573
+[WB] x5 <= 0x178
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x73 Rd=a
+------------------------------------------------------------
+[FETCH] PC=0x188 Instr=0x30200073
+[WB] x5 <= 0x18c
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x18c Instr=0x200193
+[MRET] Returning to 0x18c
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x190 Instr=0x593
+[WB] x10 <= 0x0
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x194 Instr=0x613
+------------------------------------------------------------
+[FETCH] PC=0x18c Instr=0x200193
+[WB] x3 <= 0x2
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x190 Instr=0x593
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x194 Instr=0x613
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x198 Instr=0xc58733
+[WB] x3 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x19c Instr=0x393
+[WB] x11 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x1a0 Instr=0x4c771663
+[WB] x12 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x63 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x1a4 Instr=0x300193
+[WB] x14 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x1a8 Instr=0x100593
+[WB] x7 <= 0x0
+[EXEC] ALU=0x3
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x1ac Instr=0x100613
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x1b0 Instr=0xc58733
+[WB] x3 <= 0x3
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x1b4 Instr=0x200393
+[WB] x11 <= 0x1
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x1b8 Instr=0x4a771a63
+[WB] x12 <= 0x1
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=14
+------------------------------------------------------------
+[FETCH] PC=0x1bc Instr=0x400193
+[WB] x14 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x1c0 Instr=0x300593
+[WB] x7 <= 0x2
+[EXEC] ALU=0x4
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x1c4 Instr=0x700613
+[EXEC] ALU=0x3
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x1c8 Instr=0xc58733
+[WB] x3 <= 0x4
+[EXEC] ALU=0x7
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x1cc Instr=0xa00393
+[WB] x11 <= 0x3
+[EXEC] ALU=0xa
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x1d0 Instr=0x48771e63
+[WB] x12 <= 0x7
+[EXEC] ALU=0xa
+[DECODE] Opcode=0x63 Rd=1c
+------------------------------------------------------------
+[FETCH] PC=0x1d4 Instr=0x500193
+[WB] x14 <= 0xa
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x1d8 Instr=0x593
+[WB] x7 <= 0xa
+[EXEC] ALU=0x5
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x1dc Instr=0xffff8637
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x37 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x1e0 Instr=0xc58733
+[WB] x3 <= 0x5
+[EXEC] ALU=0xffff8000
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x1e4 Instr=0xffff83b7
+[WB] x11 <= 0x0
+[EXEC] ALU=0xffff8000
+[DECODE] Opcode=0x37 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x1e8 Instr=0x48771263
+[WB] x12 <= 0xffff8000
+[EXEC] ALU=0xffff8000
+[DECODE] Opcode=0x63 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x1ec Instr=0x600193
+[WB] x14 <= 0xffff8000
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x1f0 Instr=0x800005b7
+[WB] x7 <= 0xffff8000
+[EXEC] ALU=0x6
+[DECODE] Opcode=0x37 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x1f4 Instr=0x613
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x1f8 Instr=0xc58733
+[WB] x3 <= 0x6
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x1fc Instr=0x800003b7
+[WB] x11 <= 0x80000000
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x37 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x200 Instr=0x46771663
+[WB] x12 <= 0x0
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x63 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x204 Instr=0x700193
+[WB] x14 <= 0x80000000
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x208 Instr=0x800005b7
+[WB] x7 <= 0x80000000
+[EXEC] ALU=0x7
+[DECODE] Opcode=0x37 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x20c Instr=0xffff8637
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x37 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x210 Instr=0xc58733
+[WB] x3 <= 0x7
+[EXEC] ALU=0xffff8000
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x214 Instr=0x7fff83b7
+[WB] x11 <= 0x80000000
+[EXEC] ALU=0x7fff8000
+[DECODE] Opcode=0x37 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x218 Instr=0x44771a63
+[WB] x12 <= 0xffff8000
+[EXEC] ALU=0x7fff8000
+[DECODE] Opcode=0x63 Rd=14
+------------------------------------------------------------
+[FETCH] PC=0x21c Instr=0x800193
+[WB] x14 <= 0x7fff8000
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x220 Instr=0x593
+[WB] x7 <= 0x7fff8000
+[EXEC] ALU=0x8
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x224 Instr=0x8637
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x37 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x228 Instr=0xfff60613
+[WB] x3 <= 0x8
+[EXEC] ALU=0x8000
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x22c Instr=0xc58733
+[WB] x11 <= 0x0
+[EXEC] ALU=0x7fff
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x230 Instr=0x83b7
+[WB] x12 <= 0x8000
+[EXEC] ALU=0x7fff
+[DECODE] Opcode=0x37 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x234 Instr=0xfff38393
+[WB] x12 <= 0x7fff
+[EXEC] ALU=0x8000
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x238 Instr=0x42771a63
+[WB] x14 <= 0x7fff
+[EXEC] ALU=0x7fff
+[DECODE] Opcode=0x63 Rd=14
+------------------------------------------------------------
+[FETCH] PC=0x23c Instr=0x900193
+[WB] x7 <= 0x8000
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x240 Instr=0x800005b7
+[WB] x7 <= 0x7fff
+[EXEC] ALU=0x9
+[DECODE] Opcode=0x37 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x244 Instr=0xfff58593
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x248 Instr=0x613
+[WB] x3 <= 0x9
+[EXEC] ALU=0x7fffffff
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x24c Instr=0xc58733
+[WB] x11 <= 0x80000000
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x250 Instr=0x800003b7
+[WB] x11 <= 0x7fffffff
+[EXEC] ALU=0x7fffffff
+[DECODE] Opcode=0x37 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x254 Instr=0xfff38393
+[WB] x12 <= 0x0
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x258 Instr=0x40771a63
+[WB] x14 <= 0x7fffffff
+[EXEC] ALU=0x7fffffff
+[DECODE] Opcode=0x63 Rd=14
+------------------------------------------------------------
+[FETCH] PC=0x25c Instr=0xa00193
+[WB] x7 <= 0x80000000
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x260 Instr=0x800005b7
+[WB] x7 <= 0x7fffffff
+[EXEC] ALU=0xa
+[DECODE] Opcode=0x37 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x264 Instr=0xfff58593
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x268 Instr=0x8637
+[WB] x3 <= 0xa
+[EXEC] ALU=0x7fffffff
+[DECODE] Opcode=0x37 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x26c Instr=0xfff60613
+[WB] x11 <= 0x80000000
+[EXEC] ALU=0x8000
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x270 Instr=0xc58733
+[WB] x11 <= 0x7fffffff
+[EXEC] ALU=0x7fff
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x274 Instr=0x800083b7
+[WB] x12 <= 0x8000
+[EXEC] ALU=0x80007ffe
+[DECODE] Opcode=0x37 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x278 Instr=0xffe38393
+[WB] x12 <= 0x7fff
+[EXEC] ALU=0x80008000
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x27c Instr=0x3e771863
+[WB] x14 <= 0x80007ffe
+[EXEC] ALU=0x80007ffe
+[DECODE] Opcode=0x63 Rd=10
+------------------------------------------------------------
+[FETCH] PC=0x280 Instr=0xb00193
+[WB] x7 <= 0x80008000
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x284 Instr=0x800005b7
+[WB] x7 <= 0x80007ffe
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x37 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x288 Instr=0x8637
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x37 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x28c Instr=0xfff60613
+[WB] x3 <= 0xb
+[EXEC] ALU=0x8000
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x290 Instr=0xc58733
+[WB] x11 <= 0x80000000
+[EXEC] ALU=0x7fff
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x294 Instr=0x800083b7
+[WB] x12 <= 0x8000
+[EXEC] ALU=0x80007fff
+[DECODE] Opcode=0x37 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x298 Instr=0xfff38393
+[WB] x12 <= 0x7fff
+[EXEC] ALU=0x80008000
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x29c Instr=0x3c771863
+[WB] x14 <= 0x80007fff
+[EXEC] ALU=0x80007fff
+[DECODE] Opcode=0x63 Rd=10
+------------------------------------------------------------
+[FETCH] PC=0x2a0 Instr=0xc00193
+[WB] x7 <= 0x80008000
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x2a4 Instr=0x800005b7
+[WB] x7 <= 0x80007fff
+[EXEC] ALU=0xc
+[DECODE] Opcode=0x37 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x2a8 Instr=0xfff58593
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x2ac Instr=0xffff8637
+[WB] x3 <= 0xc
+[EXEC] ALU=0x7fffffff
+[DECODE] Opcode=0x37 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x2b0 Instr=0xc58733
+[WB] x11 <= 0x80000000
+[EXEC] ALU=0xffff8000
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x2b4 Instr=0x7fff83b7
+[WB] x11 <= 0x7fffffff
+[EXEC] ALU=0x7fff7fff
+[DECODE] Opcode=0x37 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x2b8 Instr=0xfff38393
+[WB] x12 <= 0xffff8000
+[EXEC] ALU=0x7fff8000
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x2bc Instr=0x3a771863
+[WB] x14 <= 0x7fff7fff
+[EXEC] ALU=0x7fff7fff
+[DECODE] Opcode=0x63 Rd=10
+------------------------------------------------------------
+[FETCH] PC=0x2c0 Instr=0xd00193
+[WB] x7 <= 0x7fff8000
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x2c4 Instr=0x593
+[WB] x7 <= 0x7fff7fff
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x2c8 Instr=0xfff00613
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x2cc Instr=0xc58733
+[WB] x3 <= 0xd
+[EXEC] ALU=0xffffffff
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x2d0 Instr=0xfff00393
+[WB] x11 <= 0x0
+[EXEC] ALU=0xffffffff
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x2d4 Instr=0x38771c63
+[WB] x12 <= 0xffffffff
+[EXEC] ALU=0xffffffff
+[DECODE] Opcode=0x63 Rd=18
+------------------------------------------------------------
+[FETCH] PC=0x2d8 Instr=0xe00193
+[WB] x14 <= 0xffffffff
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x2dc Instr=0xfff00593
+[WB] x7 <= 0xffffffff
+[EXEC] ALU=0xe
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x2e0 Instr=0x100613
+[EXEC] ALU=0xffffffff
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x2e4 Instr=0xc58733
+[WB] x3 <= 0xe
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x2e8 Instr=0x393
+[WB] x11 <= 0xffffffff
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x2ec Instr=0x38771063
+[WB] x12 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x63 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x2f0 Instr=0xf00193
+[WB] x14 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x2f4 Instr=0xfff00593
+[WB] x7 <= 0x0
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x2f8 Instr=0xfff00613
+[EXEC] ALU=0xffffffff
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x2fc Instr=0xc58733
+[WB] x3 <= 0xf
+[EXEC] ALU=0xffffffff
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x300 Instr=0xffe00393
+[WB] x11 <= 0xffffffff
+[EXEC] ALU=0xfffffffe
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x304 Instr=0x36771463
+[WB] x12 <= 0xffffffff
+[EXEC] ALU=0xfffffffe
+[DECODE] Opcode=0x63 Rd=8
+------------------------------------------------------------
+[FETCH] PC=0x308 Instr=0x1000193
+[WB] x14 <= 0xfffffffe
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x30c Instr=0x100593
+[WB] x7 <= 0xfffffffe
+[EXEC] ALU=0x10
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x310 Instr=0x80000637
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x37 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x314 Instr=0xfff60613
+[WB] x3 <= 0x10
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x318 Instr=0xc58733
+[WB] x11 <= 0x1
+[EXEC] ALU=0x7fffffff
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x31c Instr=0x800003b7
+[WB] x12 <= 0x80000000
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x37 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x320 Instr=0x34771663
+[WB] x12 <= 0x7fffffff
+[EXEC] ALU=0x80000000
+[DECODE] Opcode=0x63 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x324 Instr=0x1100193
+[WB] x14 <= 0x80000000
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x328 Instr=0xd00593
+[WB] x7 <= 0x80000000
+[EXEC] ALU=0x11
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x32c Instr=0xb00613
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x330 Instr=0xc585b3
+[WB] x3 <= 0x11
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x334 Instr=0x1800393
+[WB] x11 <= 0xd
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x338 Instr=0x32759a63
+[WB] x12 <= 0xb
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x63 Rd=14
+------------------------------------------------------------
+[FETCH] PC=0x33c Instr=0x1200193
+[WB] x11 <= 0x18
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x340 Instr=0xe00593
+[WB] x7 <= 0x18
+[EXEC] ALU=0x12
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x344 Instr=0xb00613
+[EXEC] ALU=0xe
+[DECODE] Opcode=0x13 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x348 Instr=0xc58633
+[WB] x3 <= 0x12
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x34c Instr=0x1900393
+[WB] x11 <= 0xe
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x350 Instr=0x30761e63
+[WB] x12 <= 0xb
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x63 Rd=1c
+------------------------------------------------------------
+[FETCH] PC=0x354 Instr=0x1300193
+[WB] x12 <= 0x19
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x358 Instr=0xd00593
+[WB] x7 <= 0x19
+[EXEC] ALU=0x13
+[DECODE] Opcode=0x13 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x35c Instr=0xb585b3
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x33 Rd=b
+------------------------------------------------------------
+[FETCH] PC=0x360 Instr=0x1a00393
+[WB] x3 <= 0x13
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x364 Instr=0x30759463
+[WB] x11 <= 0xd
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x63 Rd=8
+------------------------------------------------------------
+[FETCH] PC=0x368 Instr=0x1400193
+[WB] x11 <= 0x1a
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x36c Instr=0x213
+[WB] x7 <= 0x1a
+[EXEC] ALU=0x14
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x370 Instr=0xd00093
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x374 Instr=0xb00113
+[WB] x3 <= 0x14
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x378 Instr=0x208733
+[WB] x4 <= 0x0
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x37c Instr=0x70313
+[WB] x1 <= 0xd
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=6
+------------------------------------------------------------
+[FETCH] PC=0x380 Instr=0x120213
+[WB] x2 <= 0xb
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x384 Instr=0x200293
+[WB] x14 <= 0x18
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x388 Instr=0xfe5214e3
+[WB] x6 <= 0x18
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=9
+------------------------------------------------------------
+[FETCH] PC=0x38c Instr=0x1800393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x390 Instr=0x2c731e63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x63 Rd=1c
+------------------------------------------------------------
+[FETCH] PC=0x394 Instr=0x1500193
+------------------------------------------------------------
+[FETCH] PC=0x370 Instr=0xd00093
+[WB] x7 <= 0x18
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x374 Instr=0xb00113
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x378 Instr=0x208733
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x37c Instr=0x70313
+[WB] x1 <= 0xd
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=6
+------------------------------------------------------------
+[FETCH] PC=0x380 Instr=0x120213
+[WB] x2 <= 0xb
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x384 Instr=0x200293
+[WB] x14 <= 0x18
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x388 Instr=0xfe5214e3
+[WB] x6 <= 0x18
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=9
+------------------------------------------------------------
+[FETCH] PC=0x38c Instr=0x1800393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x390 Instr=0x2c731e63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x63 Rd=1c
+------------------------------------------------------------
+[FETCH] PC=0x394 Instr=0x1500193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x398 Instr=0x213
+[WB] x7 <= 0x18
+[EXEC] ALU=0x15
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x39c Instr=0xe00093
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x3a0 Instr=0xb00113
+[WB] x3 <= 0x15
+[EXEC] ALU=0xe
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x3a4 Instr=0x208733
+[WB] x4 <= 0x0
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x3a8 Instr=0x13
+[WB] x1 <= 0xe
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x3ac Instr=0x70313
+[WB] x2 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=6
+------------------------------------------------------------
+[FETCH] PC=0x3b0 Instr=0x120213
+[WB] x14 <= 0x19
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x3b4 Instr=0x200293
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x3b8 Instr=0xfe5212e3
+[WB] x6 <= 0x19
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x3bc Instr=0x1900393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x3c0 Instr=0x2a731663
+[WB] x5 <= 0x2
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x63 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x3c4 Instr=0x1600193
+------------------------------------------------------------
+[FETCH] PC=0x39c Instr=0xe00093
+[WB] x7 <= 0x19
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x3a0 Instr=0xb00113
+[EXEC] ALU=0xe
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x3a4 Instr=0x208733
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x3a8 Instr=0x13
+[WB] x1 <= 0xe
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x3ac Instr=0x70313
+[WB] x2 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=6
+------------------------------------------------------------
+[FETCH] PC=0x3b0 Instr=0x120213
+[WB] x14 <= 0x19
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x3b4 Instr=0x200293
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x3b8 Instr=0xfe5212e3
+[WB] x6 <= 0x19
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x3bc Instr=0x1900393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x3c0 Instr=0x2a731663
+[WB] x5 <= 0x2
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x63 Rd=c
+------------------------------------------------------------
+[FETCH] PC=0x3c4 Instr=0x1600193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x3c8 Instr=0x213
+[WB] x7 <= 0x19
+[EXEC] ALU=0x16
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x3cc Instr=0xf00093
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x3d0 Instr=0xb00113
+[WB] x3 <= 0x16
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x3d4 Instr=0x208733
+[WB] x4 <= 0x0
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x3d8 Instr=0x13
+[WB] x1 <= 0xf
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x3dc Instr=0x13
+[WB] x2 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x3e0 Instr=0x70313
+[WB] x14 <= 0x1a
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=6
+------------------------------------------------------------
+[FETCH] PC=0x3e4 Instr=0x120213
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x3e8 Instr=0x200293
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x3ec Instr=0xfe5210e3
+[WB] x6 <= 0x1a
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x3f0 Instr=0x1a00393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x3f4 Instr=0x26731c63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x63 Rd=18
+------------------------------------------------------------
+[FETCH] PC=0x3f8 Instr=0x1700193
+------------------------------------------------------------
+[FETCH] PC=0x3cc Instr=0xf00093
+[WB] x7 <= 0x1a
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x3d0 Instr=0xb00113
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x3d4 Instr=0x208733
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x3d8 Instr=0x13
+[WB] x1 <= 0xf
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x3dc Instr=0x13
+[WB] x2 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x3e0 Instr=0x70313
+[WB] x14 <= 0x1a
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=6
+------------------------------------------------------------
+[FETCH] PC=0x3e4 Instr=0x120213
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x3e8 Instr=0x200293
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x3ec Instr=0xfe5210e3
+[WB] x6 <= 0x1a
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x3f0 Instr=0x1a00393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x3f4 Instr=0x26731c63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x63 Rd=18
+------------------------------------------------------------
+[FETCH] PC=0x3f8 Instr=0x1700193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x3fc Instr=0x213
+[WB] x7 <= 0x1a
+[EXEC] ALU=0x17
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x400 Instr=0xd00093
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x404 Instr=0xb00113
+[WB] x3 <= 0x17
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x408 Instr=0x208733
+[WB] x4 <= 0x0
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x40c Instr=0x120213
+[WB] x1 <= 0xd
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x410 Instr=0x200293
+[WB] x2 <= 0xb
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x414 Instr=0xfe5216e3
+[WB] x14 <= 0x18
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=d
+------------------------------------------------------------
+[FETCH] PC=0x418 Instr=0x1800393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x41c Instr=0x24771863
+[WB] x5 <= 0x2
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x63 Rd=10
+------------------------------------------------------------
+[FETCH] PC=0x420 Instr=0x1800193
+------------------------------------------------------------
+[FETCH] PC=0x400 Instr=0xd00093
+[WB] x7 <= 0x18
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x404 Instr=0xb00113
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x408 Instr=0x208733
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x40c Instr=0x120213
+[WB] x1 <= 0xd
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x410 Instr=0x200293
+[WB] x2 <= 0xb
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x414 Instr=0xfe5216e3
+[WB] x14 <= 0x18
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=d
+------------------------------------------------------------
+[FETCH] PC=0x418 Instr=0x1800393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x41c Instr=0x24771863
+[WB] x5 <= 0x2
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x63 Rd=10
+------------------------------------------------------------
+[FETCH] PC=0x420 Instr=0x1800193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x424 Instr=0x213
+[WB] x7 <= 0x18
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x428 Instr=0xe00093
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x42c Instr=0xb00113
+[WB] x3 <= 0x18
+[EXEC] ALU=0xe
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x430 Instr=0x13
+[WB] x4 <= 0x0
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x434 Instr=0x208733
+[WB] x1 <= 0xe
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x438 Instr=0x120213
+[WB] x2 <= 0xb
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x43c Instr=0x200293
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x440 Instr=0xfe5214e3
+[WB] x14 <= 0x19
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=9
+------------------------------------------------------------
+[FETCH] PC=0x444 Instr=0x1900393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x448 Instr=0x22771263
+[WB] x5 <= 0x2
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x63 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44c Instr=0x1900193
+------------------------------------------------------------
+[FETCH] PC=0x428 Instr=0xe00093
+[WB] x7 <= 0x19
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x42c Instr=0xb00113
+[EXEC] ALU=0xe
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x430 Instr=0x13
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x434 Instr=0x208733
+[WB] x1 <= 0xe
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x438 Instr=0x120213
+[WB] x2 <= 0xb
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x43c Instr=0x200293
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x440 Instr=0xfe5214e3
+[WB] x14 <= 0x19
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=9
+------------------------------------------------------------
+[FETCH] PC=0x444 Instr=0x1900393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x448 Instr=0x22771263
+[WB] x5 <= 0x2
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x63 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44c Instr=0x1900193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x450 Instr=0x213
+[WB] x7 <= 0x19
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x454 Instr=0xf00093
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x458 Instr=0xb00113
+[WB] x3 <= 0x19
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x45c Instr=0x13
+[WB] x4 <= 0x0
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x460 Instr=0x13
+[WB] x1 <= 0xf
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x464 Instr=0x208733
+[WB] x2 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x468 Instr=0x120213
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x46c Instr=0x200293
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x470 Instr=0xfe5212e3
+[WB] x14 <= 0x1a
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x474 Instr=0x1a00393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x478 Instr=0x1e771a63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x63 Rd=14
+------------------------------------------------------------
+[FETCH] PC=0x47c Instr=0x1a00193
+------------------------------------------------------------
+[FETCH] PC=0x454 Instr=0xf00093
+[WB] x7 <= 0x1a
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x458 Instr=0xb00113
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x45c Instr=0x13
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x460 Instr=0x13
+[WB] x1 <= 0xf
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x464 Instr=0x208733
+[WB] x2 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x468 Instr=0x120213
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x46c Instr=0x200293
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x470 Instr=0xfe5212e3
+[WB] x14 <= 0x1a
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x474 Instr=0x1a00393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x478 Instr=0x1e771a63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x63 Rd=14
+------------------------------------------------------------
+[FETCH] PC=0x47c Instr=0x1a00193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x480 Instr=0x213
+[WB] x7 <= 0x1a
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x484 Instr=0xd00093
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x488 Instr=0x13
+[WB] x3 <= 0x1a
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x48c Instr=0xb00113
+[WB] x4 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x490 Instr=0x208733
+[WB] x1 <= 0xd
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x494 Instr=0x120213
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x498 Instr=0x200293
+[WB] x2 <= 0xb
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x49c Instr=0xfe5214e3
+[WB] x14 <= 0x18
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=9
+------------------------------------------------------------
+[FETCH] PC=0x4a0 Instr=0x1800393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x4a4 Instr=0x1c771463
+[WB] x5 <= 0x2
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x63 Rd=8
+------------------------------------------------------------
+[FETCH] PC=0x4a8 Instr=0x1b00193
+------------------------------------------------------------
+[FETCH] PC=0x484 Instr=0xd00093
+[WB] x7 <= 0x18
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x488 Instr=0x13
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x48c Instr=0xb00113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x490 Instr=0x208733
+[WB] x1 <= 0xd
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x494 Instr=0x120213
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x498 Instr=0x200293
+[WB] x2 <= 0xb
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x49c Instr=0xfe5214e3
+[WB] x14 <= 0x18
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=9
+------------------------------------------------------------
+[FETCH] PC=0x4a0 Instr=0x1800393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x4a4 Instr=0x1c771463
+[WB] x5 <= 0x2
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x63 Rd=8
+------------------------------------------------------------
+[FETCH] PC=0x4a8 Instr=0x1b00193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x4ac Instr=0x213
+[WB] x7 <= 0x18
+[EXEC] ALU=0x1b
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x4b0 Instr=0xe00093
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x4b4 Instr=0x13
+[WB] x3 <= 0x1b
+[EXEC] ALU=0xe
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4b8 Instr=0xb00113
+[WB] x4 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x4bc Instr=0x13
+[WB] x1 <= 0xe
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c0 Instr=0x208733
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x4c4 Instr=0x120213
+[WB] x2 <= 0xb
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x4c8 Instr=0x200293
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x4cc Instr=0xfe5212e3
+[WB] x14 <= 0x19
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x4d0 Instr=0x1900393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x4d4 Instr=0x18771c63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x63 Rd=18
+------------------------------------------------------------
+[FETCH] PC=0x4d8 Instr=0x1c00193
+------------------------------------------------------------
+[FETCH] PC=0x4b0 Instr=0xe00093
+[WB] x7 <= 0x19
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x4b4 Instr=0x13
+[EXEC] ALU=0xe
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4b8 Instr=0xb00113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x4bc Instr=0x13
+[WB] x1 <= 0xe
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c0 Instr=0x208733
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x4c4 Instr=0x120213
+[WB] x2 <= 0xb
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x4c8 Instr=0x200293
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x4cc Instr=0xfe5212e3
+[WB] x14 <= 0x19
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x4d0 Instr=0x1900393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x4d4 Instr=0x18771c63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x63 Rd=18
+------------------------------------------------------------
+[FETCH] PC=0x4d8 Instr=0x1c00193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x4dc Instr=0x213
+[WB] x7 <= 0x19
+[EXEC] ALU=0x1c
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x4e0 Instr=0xf00093
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x4e4 Instr=0x13
+[WB] x3 <= 0x1c
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4e8 Instr=0x13
+[WB] x4 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4ec Instr=0xb00113
+[WB] x1 <= 0xf
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x4f0 Instr=0x208733
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x4f4 Instr=0x120213
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x4f8 Instr=0x200293
+[WB] x2 <= 0xb
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x4fc Instr=0xfe5212e3
+[WB] x14 <= 0x1a
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x500 Instr=0x1a00393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x504 Instr=0x16771463
+[WB] x5 <= 0x2
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x63 Rd=8
+------------------------------------------------------------
+[FETCH] PC=0x508 Instr=0x1d00193
+------------------------------------------------------------
+[FETCH] PC=0x4e0 Instr=0xf00093
+[WB] x7 <= 0x1a
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x4e4 Instr=0x13
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4e8 Instr=0x13
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4ec Instr=0xb00113
+[WB] x1 <= 0xf
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x4f0 Instr=0x208733
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x4f4 Instr=0x120213
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x4f8 Instr=0x200293
+[WB] x2 <= 0xb
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x4fc Instr=0xfe5212e3
+[WB] x14 <= 0x1a
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x500 Instr=0x1a00393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x504 Instr=0x16771463
+[WB] x5 <= 0x2
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x63 Rd=8
+------------------------------------------------------------
+[FETCH] PC=0x508 Instr=0x1d00193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x50c Instr=0x213
+[WB] x7 <= 0x1a
+[EXEC] ALU=0x1d
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x510 Instr=0xb00113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x514 Instr=0xd00093
+[WB] x3 <= 0x1d
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x518 Instr=0x208733
+[WB] x4 <= 0x0
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x51c Instr=0x120213
+[WB] x2 <= 0xb
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x520 Instr=0x200293
+[WB] x1 <= 0xd
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x524 Instr=0xfe5216e3
+[WB] x14 <= 0x18
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=d
+------------------------------------------------------------
+[FETCH] PC=0x528 Instr=0x1800393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x52c Instr=0x14771063
+[WB] x5 <= 0x2
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x63 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x530 Instr=0x1e00193
+------------------------------------------------------------
+[FETCH] PC=0x510 Instr=0xb00113
+[WB] x7 <= 0x18
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x514 Instr=0xd00093
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x518 Instr=0x208733
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x51c Instr=0x120213
+[WB] x2 <= 0xb
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x520 Instr=0x200293
+[WB] x1 <= 0xd
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x524 Instr=0xfe5216e3
+[WB] x14 <= 0x18
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=d
+------------------------------------------------------------
+[FETCH] PC=0x528 Instr=0x1800393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x52c Instr=0x14771063
+[WB] x5 <= 0x2
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x63 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x530 Instr=0x1e00193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x534 Instr=0x213
+[WB] x7 <= 0x18
+[EXEC] ALU=0x1e
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x538 Instr=0xb00113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x53c Instr=0xe00093
+[WB] x3 <= 0x1e
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x540 Instr=0x13
+[WB] x4 <= 0x0
+[EXEC] ALU=0xe
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x544 Instr=0x208733
+[WB] x2 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x548 Instr=0x120213
+[WB] x1 <= 0xe
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x54c Instr=0x200293
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x550 Instr=0xfe5214e3
+[WB] x14 <= 0x19
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=9
+------------------------------------------------------------
+[FETCH] PC=0x554 Instr=0x1900393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x558 Instr=0x10771a63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x63 Rd=14
+------------------------------------------------------------
+[FETCH] PC=0x55c Instr=0x1f00193
+------------------------------------------------------------
+[FETCH] PC=0x538 Instr=0xb00113
+[WB] x7 <= 0x19
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x53c Instr=0xe00093
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x540 Instr=0x13
+[EXEC] ALU=0xe
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x544 Instr=0x208733
+[WB] x2 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x548 Instr=0x120213
+[WB] x1 <= 0xe
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x54c Instr=0x200293
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x550 Instr=0xfe5214e3
+[WB] x14 <= 0x19
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=9
+------------------------------------------------------------
+[FETCH] PC=0x554 Instr=0x1900393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x558 Instr=0x10771a63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x63 Rd=14
+------------------------------------------------------------
+[FETCH] PC=0x55c Instr=0x1f00193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x560 Instr=0x213
+[WB] x7 <= 0x19
+[EXEC] ALU=0x1f
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x564 Instr=0xb00113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x568 Instr=0xf00093
+[WB] x3 <= 0x1f
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x56c Instr=0x13
+[WB] x4 <= 0x0
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x570 Instr=0x13
+[WB] x2 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x574 Instr=0x208733
+[WB] x1 <= 0xf
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x578 Instr=0x120213
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x57c Instr=0x200293
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x580 Instr=0xfe5212e3
+[WB] x14 <= 0x1a
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x584 Instr=0x1a00393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x588 Instr=0xe771263
+[WB] x5 <= 0x2
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x63 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x58c Instr=0x2000193
+------------------------------------------------------------
+[FETCH] PC=0x564 Instr=0xb00113
+[WB] x7 <= 0x1a
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x568 Instr=0xf00093
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x56c Instr=0x13
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x570 Instr=0x13
+[WB] x2 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x574 Instr=0x208733
+[WB] x1 <= 0xf
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x578 Instr=0x120213
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x57c Instr=0x200293
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x580 Instr=0xfe5212e3
+[WB] x14 <= 0x1a
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x584 Instr=0x1a00393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x588 Instr=0xe771263
+[WB] x5 <= 0x2
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x63 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x58c Instr=0x2000193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x590 Instr=0x213
+[WB] x7 <= 0x1a
+[EXEC] ALU=0x20
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x594 Instr=0xb00113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x598 Instr=0x13
+[WB] x3 <= 0x20
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x59c Instr=0xd00093
+[WB] x4 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x5a0 Instr=0x208733
+[WB] x2 <= 0xb
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x5a4 Instr=0x120213
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x5a8 Instr=0x200293
+[WB] x1 <= 0xd
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x5ac Instr=0xfe5214e3
+[WB] x14 <= 0x18
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=9
+------------------------------------------------------------
+[FETCH] PC=0x5b0 Instr=0x1800393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x5b4 Instr=0xa771c63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x63 Rd=18
+------------------------------------------------------------
+[FETCH] PC=0x5b8 Instr=0x2100193
+------------------------------------------------------------
+[FETCH] PC=0x594 Instr=0xb00113
+[WB] x7 <= 0x18
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x598 Instr=0x13
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x59c Instr=0xd00093
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x5a0 Instr=0x208733
+[WB] x2 <= 0xb
+[EXEC] ALU=0xd
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x5a4 Instr=0x120213
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x5a8 Instr=0x200293
+[WB] x1 <= 0xd
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x5ac Instr=0xfe5214e3
+[WB] x14 <= 0x18
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=9
+------------------------------------------------------------
+[FETCH] PC=0x5b0 Instr=0x1800393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x5b4 Instr=0xa771c63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x18
+[DECODE] Opcode=0x63 Rd=18
+------------------------------------------------------------
+[FETCH] PC=0x5b8 Instr=0x2100193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x5bc Instr=0x213
+[WB] x7 <= 0x18
+[EXEC] ALU=0x21
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x5c0 Instr=0xb00113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x5c4 Instr=0x13
+[WB] x3 <= 0x21
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x5c8 Instr=0xe00093
+[WB] x4 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x5cc Instr=0x13
+[WB] x2 <= 0xb
+[EXEC] ALU=0xe
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x5d0 Instr=0x208733
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x5d4 Instr=0x120213
+[WB] x1 <= 0xe
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x5d8 Instr=0x200293
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x5dc Instr=0xfe5212e3
+[WB] x14 <= 0x19
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x5e0 Instr=0x1900393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x5e4 Instr=0x8771463
+[WB] x5 <= 0x2
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x63 Rd=8
+------------------------------------------------------------
+[FETCH] PC=0x5e8 Instr=0x2200193
+------------------------------------------------------------
+[FETCH] PC=0x5c0 Instr=0xb00113
+[WB] x7 <= 0x19
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x5c4 Instr=0x13
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x5c8 Instr=0xe00093
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x5cc Instr=0x13
+[WB] x2 <= 0xb
+[EXEC] ALU=0xe
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x5d0 Instr=0x208733
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x5d4 Instr=0x120213
+[WB] x1 <= 0xe
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x5d8 Instr=0x200293
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x5dc Instr=0xfe5212e3
+[WB] x14 <= 0x19
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x5e0 Instr=0x1900393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x5e4 Instr=0x8771463
+[WB] x5 <= 0x2
+[EXEC] ALU=0x19
+[DECODE] Opcode=0x63 Rd=8
+------------------------------------------------------------
+[FETCH] PC=0x5e8 Instr=0x2200193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x5ec Instr=0x213
+[WB] x7 <= 0x19
+[EXEC] ALU=0x22
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x5f0 Instr=0xb00113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x5f4 Instr=0x13
+[WB] x3 <= 0x22
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x5f8 Instr=0x13
+[WB] x4 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x5fc Instr=0xf00093
+[WB] x2 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x600 Instr=0x208733
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x604 Instr=0x120213
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x608 Instr=0x200293
+[WB] x1 <= 0xf
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x60c Instr=0xfe5212e3
+[WB] x14 <= 0x1a
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x610 Instr=0x1a00393
+[WB] x4 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x614 Instr=0x4771c63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x63 Rd=18
+------------------------------------------------------------
+[FETCH] PC=0x618 Instr=0x2300193
+------------------------------------------------------------
+[FETCH] PC=0x5f0 Instr=0xb00113
+[WB] x7 <= 0x1a
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x5f4 Instr=0x13
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x5f8 Instr=0x13
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x5fc Instr=0xf00093
+[WB] x2 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x600 Instr=0x208733
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x33 Rd=e
+------------------------------------------------------------
+[FETCH] PC=0x604 Instr=0x120213
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x13 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x608 Instr=0x200293
+[WB] x1 <= 0xf
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x13 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x60c Instr=0xfe5212e3
+[WB] x14 <= 0x1a
+[EXEC] ALU=0x2
+[DECODE] Opcode=0x63 Rd=5
+------------------------------------------------------------
+[FETCH] PC=0x610 Instr=0x1a00393
+[WB] x4 <= 0x2
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x614 Instr=0x4771c63
+[WB] x5 <= 0x2
+[EXEC] ALU=0x1a
+[DECODE] Opcode=0x63 Rd=18
+------------------------------------------------------------
+[FETCH] PC=0x618 Instr=0x2300193
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x61c Instr=0xf00093
+[WB] x7 <= 0x1a
+[EXEC] ALU=0x23
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x620 Instr=0x100133
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x33 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x624 Instr=0xf00393
+[WB] x3 <= 0x23
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x628 Instr=0x4711263
+[WB] x1 <= 0xf
+[EXEC] ALU=0xf
+[DECODE] Opcode=0x63 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x62c Instr=0x2400193
+[WB] x2 <= 0xf
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x630 Instr=0x2000093
+[WB] x7 <= 0xf
+[EXEC] ALU=0x24
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x634 Instr=0x8133
+[EXEC] ALU=0x20
+[DECODE] Opcode=0x33 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x638 Instr=0x2000393
+[WB] x3 <= 0x24
+[EXEC] ALU=0x20
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x63c Instr=0x2711863
+[WB] x1 <= 0x20
+[EXEC] ALU=0x20
+[DECODE] Opcode=0x63 Rd=10
+------------------------------------------------------------
+[FETCH] PC=0x640 Instr=0x2500193
+[WB] x2 <= 0x20
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x644 Instr=0xb3
+[WB] x7 <= 0x20
+[EXEC] ALU=0x25
+[DECODE] Opcode=0x33 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x648 Instr=0x393
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x64c Instr=0x2709063
+[WB] x3 <= 0x25
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x63 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x650 Instr=0x2600193
+[WB] x1 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x654 Instr=0x1000093
+[WB] x7 <= 0x0
+[EXEC] ALU=0x26
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x658 Instr=0x1e00113
+[EXEC] ALU=0x10
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x65c Instr=0x208033
+[WB] x3 <= 0x26
+[EXEC] ALU=0x1e
+[DECODE] Opcode=0x33 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x660 Instr=0x393
+[WB] x1 <= 0x10
+[EXEC] ALU=0x2e
+[DECODE] Opcode=0x13 Rd=7
+------------------------------------------------------------
+[FETCH] PC=0x664 Instr=0x701463
+[WB] x2 <= 0x1e
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x63 Rd=8
+------------------------------------------------------------
+[FETCH] PC=0x668 Instr=0x2301063
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x63 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x66c Instr=0xff0000f
+[WB] x7 <= 0x0
+[EXEC] ALU=0x0
+[DECODE] Opcode=0xf Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x670 Instr=0x18063
+[FENCE] Memory Barrier
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x63 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x674 Instr=0x119193
+------------------------------------------------------------
+[FETCH] PC=0x688 Instr=0xff0000f
+[DECODE] Opcode=0xf Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x68c Instr=0x100193
+[FENCE] Memory Barrier
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=3
+------------------------------------------------------------
+[FETCH] PC=0x690 Instr=0x5d00893
+[EXEC] ALU=0x1
+[DECODE] Opcode=0x13 Rd=11
+------------------------------------------------------------
+[FETCH] PC=0x694 Instr=0x513
+[EXEC] ALU=0x5d
+[DECODE] Opcode=0x13 Rd=a
+------------------------------------------------------------
+[FETCH] PC=0x698 Instr=0x73
+[WB] x3 <= 0x1
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x69c Instr=0xc0001073
+[WB] x17 <= 0x5d
+[CORE DEBUG] Exit Condition Met! Stopping Simulation.
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x73 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x6a0 Instr=0x13
+[WB] x10 <= 0x0
+[EXEC] ALU=0x233
+[DECODE] Opcode=0x13 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x6a4 Instr=0x13
+------------------------------------------------------------
+[FETCH] PC=0x4 Instr=0x34202f73
+[DECODE] Opcode=0x73 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x8 Instr=0x800f93
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x13 Rd=1f
+------------------------------------------------------------
+[FETCH] PC=0xc Instr=0x3ff0863
+[EXEC] ALU=0x8
+[DECODE] Opcode=0x63 Rd=10
+------------------------------------------------------------
+[FETCH] PC=0x10 Instr=0x900f93
+[WB] x30 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1f
+------------------------------------------------------------
+[FETCH] PC=0x14 Instr=0x3ff0463
+[WB] x31 <= 0x8
+[EXEC] ALU=0x9
+[DECODE] Opcode=0x63 Rd=8
+------------------------------------------------------------
+[FETCH] PC=0x18 Instr=0xb00f93
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1f
+------------------------------------------------------------
+[FETCH] PC=0x1c Instr=0x3ff0063
+[WB] x31 <= 0x9
+[EXEC] ALU=0xb
+[DECODE] Opcode=0x63 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x20 Instr=0xf13
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x24 Instr=0xf0463
+[WB] x31 <= 0xb
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x63 Rd=8
+------------------------------------------------------------
+[FETCH] PC=0x28 Instr=0xf0067
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x30 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+[EXEC] ALU=0x0
+[DECODE] Opcode=0x13 Rd=2
+------------------------------------------------------------
+[FETCH] PC=0x58 Instr=0x193
+------------------------------------------------------------
+[FETCH] PC=0x3c Instr=0x1f17
+[WB] x1 <= 0x0
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x40 Instr=0xfc3f2223
+[EXEC] ALU=0x103c
+[DECODE] Opcode=0x23 Rd=4
+------------------------------------------------------------
+[FETCH] PC=0x44 Instr=0x1f17
+[EXEC] ALU=0x1000
+[DECODE] Opcode=0x17 Rd=1e
+------------------------------------------------------------
+[FETCH] PC=0x48 Instr=0xfc0f2023
+[WB] x30 <= 0x103c
+[MEM] Stored 0x1 to 0x1000
+[EXEC] ALU=0x1044
+[DECODE] Opcode=0x23 Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x4c Instr=0xff1ff06f
+[EXEC] ALU=0x1004
+[DECODE] Opcode=0x6f Rd=0
+------------------------------------------------------------
+[FETCH] PC=0x50 Instr=0x93
+[WB] x30 <= 0x1044
+[MEM] Stored 0x0 to 0x1004
+[EXEC] ALU=0x50
+[DECODE] Opcode=0x13 Rd=1
+------------------------------------------------------------
+[FETCH] PC=0x54 Instr=0x113
+--------------------------------------------------
+[TESTBENCH] Hardware Finished.
+[TESTBENCH] Total Cycles Executed: 700
+--------------------------------------------------
+[TESTBENCH] tohost = 0x1
+[TESTBENCH] PASS (Hardware exited via tohost)
+INFO: [SIM 211-1] CSim done with 0 errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [HLS 200-112] Total CPU user time: 2 seconds. Total CPU system time: 1 seconds. Total elapsed time: 9.598 seconds; peak allocated memory: 165.570 MB.
+INFO: [vitis-run 60-791] Total elapsed time: 0h 0m 13s
+C-simulation finished successfully

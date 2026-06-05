@@ -19,11 +19,21 @@ bool CORE_DEBUG = true;
 // Global Configuration Switch
 // ------------------------------------------------------------
 // If false, the M-extension logic is completely pruned during synthesis.
-const bool ENABLE_M_EXTENSION = true;
+const bool ENABLE_M_EXTENSION = false;
 const bool ENABLE_A_EXTENSION = true; // Toggle for Atomics
 
 #define ENABLE_FORWARDING 1
 #define EXIT_ON_TRAP 0
+
+// Enable for RISC-V ISA tests and ELF benchmarks that report completion
+// through an odd value written to 0x80001000 <tohost>.
+// Disable for Linux or other programs that may use 0x80001000 normally.
+#define ENABLE_TOHOST_EXIT 1
+
+// Enable for ELF benchmarks that use HTIF requests during C-simulation or
+// RTL co-simulation. An even write to <tohost> is acknowledged by writing 1
+// to <fromhost> at 0x80001040. Disable for Linux and normal FPGA deployment.
+#define ENABLE_HTIF_EMULATION 1
 
 // ------------------------------------------------------------
 // Inter-Stage Data Structs
@@ -293,7 +303,7 @@ void csr_write(unsigned addr, ap_uint<32> val) {
 // Stage: Fetch
 // ------------------------------------------------------------
 FetchOut fetch(volatile uint32_t* imem, ap_uint<32> fetch_pc) {
-    #pragma HLS INLINE
+    #pragma HLS INLINE off
     FetchOut f;
     
     unsigned im_idx = addr_to_idx((unsigned)fetch_pc);
@@ -527,36 +537,21 @@ ExecOut execute(const DecodeOut& d) {
             break;
     }
     case 0x63: { // Branch
-            ap_int<32> tgt = (ap_int<32>)d.pc + d.imm;
-            bool taken = false;
-            
-            switch ((unsigned)d.funct3) {
-                case 0x0: taken = (rs1_val == rs2_val); break; // BEQ
-                case 0x1: taken = (rs1_val != rs2_val); break; // BNE
-                case 0x4: taken = (rs1_val < rs2_val);  break; // BLT
-                case 0x5: taken = (rs1_val >= rs2_val); break; // BGE
-                case 0x6: taken = ((ap_uint<32>)rs1_val < (ap_uint<32>)rs2_val);  break; // BLTU
-                case 0x7: taken = ((ap_uint<32>)rs1_val >= (ap_uint<32>)rs2_val); break; // BGEU
-                default:  taken = false; break;
-            }
-
-            if(taken) {
-                e.next_pc = (ap_uint<32>)tgt;
-                e.branch_taken = true;
-            }
+            // Branch direction/target are resolved in ID now.
+            // Let the branch flow through EX as a no-op so it can retire
+            // without causing a second redirect.
+            e.reg_write = false;
             break;
     }
     case 0x6F: { // JAL
+            // The redirect is resolved in ID. EX still produces rd = PC + 4.
             e.alu_result    = (ap_int<32>)(d.pc + 4);
-            e.next_pc       = (ap_uint<32>)((ap_int<32>)d.pc + d.imm);
-            e.branch_taken  = true;
             e.reg_write     = (d.rd != 0);
             break;
     }
     case 0x67: { // JALR
+            // The redirect is resolved in ID. EX still produces rd = PC + 4.
             e.alu_result    = (ap_int<32>)(d.pc + 4); 
-            e.next_pc       = (ap_uint<32>)(((ap_int<32>)rs1_val + d.imm) & (~1));
-            e.branch_taken  = true;
             e.reg_write     = (d.rd != 0);
             break;
     }
@@ -954,16 +949,62 @@ MemOut memory(volatile uint32_t* dmem, const ExecOut& e) {
             }
             
             // ----------------------------------------------------------------
-            // HTIF INTERCEPTOR (Prevents Syscall Deadlock - Sim Only)
+            // OPTIONAL HTIF / TOHOST COMPLETION DETECTOR
             // ----------------------------------------------------------------
-            #ifndef __SYNTHESIS__
-            if (phys_ea == 0x1000) {
-                unsigned fromhost_idx = d_idx + 16; 
-                if (fromhost_idx < RAM_SIZE) {
-                    dmem[fromhost_idx] = 1; 
+            // Standard RISC-V tests and ELF benchmarks report final completion
+            // by writing an odd value to 0x80001000 <tohost>:
+            //   0x1                  -> pass
+            //   (exit_code << 1) | 1 -> fail
+            //
+            // Some programs also write even HTIF request values to tohost
+            // during normal execution. Those must not stop the core.
+            //
+            // Disable ENABLE_TOHOST_EXIT when running Linux or any program
+            // that may use 0x80001000 as ordinary memory.
+#if ENABLE_TOHOST_EXIT
+            if (ea_u == 0x80001000 &&
+                (((ap_uint<32>)e.store_val & 1) != 0)) {
+
+                is_finished = true;
+
+                if (CORE_DEBUG) {
+                    std::cout << "[TOHOST] Completion write detected: 0x"
+                              << std::hex << (unsigned)(ap_uint<32>)e.store_val
+                              << std::dec << "\n";
                 }
             }
-            #endif
+#endif
+
+            // ----------------------------------------------------------------
+            // OPTIONAL HTIF HOST EMULATION
+            // ----------------------------------------------------------------
+            // Some ELF benchmarks write an even request value to
+            // 0x80001000 <tohost>, then poll 0x80001040 <fromhost> until the
+            // simulated host acknowledges the request. This logic must also
+            // be synthesized for RTL co-simulation, so it is not hidden by
+            // __SYNTHESIS__.
+#if ENABLE_HTIF_EMULATION
+            if (ea_u == 0x80001000 &&
+                (((ap_uint<32>)e.store_val & 1) == 0)) {
+
+                const unsigned fromhost_idx = addr_to_idx(0x80001040);
+
+#ifndef __SYNTHESIS__
+                if (fromhost_idx < RAM_SIZE) {
+                    dmem[fromhost_idx] = 1;
+                }
+#else
+                dmem[fromhost_idx] = 1;
+#endif
+
+                if (CORE_DEBUG) {
+                    std::cout << "[HTIF] Request 0x"
+                              << std::hex << (unsigned)(ap_uint<32>)e.store_val
+                              << " acknowledged through fromhost"
+                              << std::dec << "\n";
+                }
+            }
+#endif
             // ----------------------------------------------------------------
             
             if(CORE_DEBUG) std::cout << "[MEM] Stored 0x" << std::hex << (int)e.store_val << " to 0x" << ea_u << std::dec << "\n";
@@ -1056,6 +1097,99 @@ static bool can_forward_from_memwb(const MEMWBReg& mem_wb) {
     if (mem_wb.data.is_trap) return false;
 
     return true;
+}
+
+// ============================================================
+// ID-Stage Redirect Helpers
+// ============================================================
+struct IDRedirect {
+    bool valid;
+    ap_uint<32> next_pc;
+};
+
+static IDRedirect make_no_id_redirect() {
+    IDRedirect r;
+    r.valid = false;
+    r.next_pc = 0;
+    return r;
+}
+
+static bool is_id_resolved_control(ap_uint<7> opcode) {
+    #pragma HLS INLINE
+    return opcode == 0x63 || // Branch
+           opcode == 0x6F || // JAL
+           opcode == 0x67;   // JALR
+}
+
+static ap_int<32> forward_value_to_id(ap_uint<5> rs,
+                                      ap_int<32> reg_val,
+                                      const EXMEMReg& ex_mem,
+                                      const MEMWBReg& mem_wb) {
+    #pragma HLS INLINE
+    ap_int<32> v = reg_val;
+
+#if ENABLE_FORWARDING
+    if (rs != 0) {
+        // Newest safe value has priority. Do not forward EX/MEM loads here
+        // because EX/MEM.alu_result is the load address, not loaded data.
+        if (can_forward_from_exmem(ex_mem) && rs == ex_mem.data.rd) {
+            v = ex_mem.data.alu_result;
+        } else if (can_forward_from_memwb(mem_wb) && rs == mem_wb.data.rd) {
+            v = mem_wb.data.value;
+        }
+    }
+#endif
+
+    return v;
+}
+
+static IDRedirect compute_id_redirect(const IDEXReg& decoded_id,
+                                      const EXMEMReg& ex_mem,
+                                      const MEMWBReg& mem_wb) {
+    #pragma HLS INLINE
+    IDRedirect r = make_no_id_redirect();
+    if (!decoded_id.valid) return r;
+
+    DecodeOut d = decoded_id.data;
+    ap_uint<7> opcode = d.opcode;
+
+    if (!is_id_resolved_control(opcode)) {
+        return r;
+    }
+
+    ap_int<32> rs1_val = forward_value_to_id(d.rs1, d.rs1_val, ex_mem, mem_wb);
+    ap_int<32> rs2_val = forward_value_to_id(d.rs2, d.rs2_val, ex_mem, mem_wb);
+
+    if (opcode == 0x6F) { // JAL
+        r.valid = true;
+        r.next_pc = (ap_uint<32>)((ap_int<32>)d.pc + d.imm);
+    } else if (opcode == 0x67) { // JALR
+        r.valid = true;
+        r.next_pc = (ap_uint<32>)(((ap_int<32>)rs1_val + d.imm) & (~1));
+    } else if (opcode == 0x63) { // Conditional branch
+        bool taken = false;
+
+        switch ((unsigned)d.funct3) {
+            case 0x0: taken = (rs1_val == rs2_val); break; // BEQ
+            case 0x1: taken = (rs1_val != rs2_val); break; // BNE
+            case 0x4: taken = (rs1_val < rs2_val);  break; // BLT
+            case 0x5: taken = (rs1_val >= rs2_val); break; // BGE
+            case 0x6: taken = ((ap_uint<32>)rs1_val < (ap_uint<32>)rs2_val);  break; // BLTU
+            case 0x7: taken = ((ap_uint<32>)rs1_val >= (ap_uint<32>)rs2_val); break; // BGEU
+            default:  taken = false; break;
+        }
+
+        if (taken) {
+            r.valid = true;
+            r.next_pc = (ap_uint<32>)((ap_int<32>)d.pc + d.imm);
+        }
+    }
+
+    if (CORE_DEBUG && r.valid) {
+        std::cout << "[ID-REDIRECT] PC <= 0x" << std::hex << (unsigned)r.next_pc << std::dec << "\n";
+    }
+
+    return r;
 }
 
 // ============================================================
@@ -1175,6 +1309,29 @@ static bool uses_rs2(ap_uint<7> opcode) {
     }
 }
 
+static bool opcode_writes_rd(ap_uint<7> opcode) {
+    switch ((unsigned)opcode) {
+        case 0x33: // R-type
+        case 0x13: // I-type ALU
+        case 0x03: // Load
+        case 0x37: // LUI
+        case 0x17: // AUIPC
+        case 0x6F: // JAL
+        case 0x67: // JALR
+        case 0x73: // CSR reads may write rd
+        case 0x2F: // Atomic
+            return true;
+        default:
+            return false;
+    }
+}
+
+static bool id_control_needs_early_operand(ap_uint<7> opcode) {
+    #pragma HLS INLINE
+    return opcode == 0x63 || // branch compares rs1/rs2 in ID
+           opcode == 0x67;   // JALR computes target from rs1 in ID
+}
+
 static bool decode_has_hazard(const IFIDReg& if_id,
                               const IDEXReg& id_ex,
                               const EXMEMReg& ex_mem) {
@@ -1191,12 +1348,15 @@ static bool decode_has_hazard(const IFIDReg& if_id,
             (need_rs2 && h.rs2 == id_ex.data.rd);
 
 #if ENABLE_FORWARDING
-        // With forwarding, only true load-use hazards need to stall here.
-        // ALU-style results in ID/EX will be available from EX/MEM
-        // when the dependent instruction reaches execute.
+        // Normal dependent ALU instructions can usually wait until EX and
+        // receive forwarded operands there. ID-resolved branches/JALR need
+        // operands one stage earlier, so they must stall for any producer
+        // currently in ID/EX. Loads also still create the normal load-use stall.
         bool idex_is_load = (id_ex.data.opcode == 0x03);
+        bool idex_writes  = opcode_writes_rd(id_ex.data.opcode);
+        bool id_needs_early_operand = id_control_needs_early_operand(h.opcode);
 
-        if (depends_on_idex && idex_is_load) {
+        if (depends_on_idex && (idex_is_load || (id_needs_early_operand && idex_writes))) {
             return true;
         }
 #else
@@ -1339,9 +1499,24 @@ void riscv_step(volatile uint32_t* imem, volatile uint32_t* dmem,
 
         // =====================================================
         // 3. NEXT-PC LOGIC
-        //    Branch/JAL/JALR/trap redirects are resolved from
-        //    the execute result produced in this cycle.
+        //    Branch/JAL/JALR redirects are now resolved from ID.
+        //    Trap/MRET redirects still come from EX.
         // =====================================================
+        if (!stall) {
+            IDRedirect id_redirect = compute_id_redirect(next_id_ex, ex_mem, mem_wb);
+
+            if (id_redirect.valid) {
+                next_pc = id_redirect.next_pc;
+
+                // Kill the sequential instruction fetched after the control
+                // instruction. The control instruction itself remains in ID/EX
+                // so JAL/JALR can still write rd = PC + 4.
+                next_if_id = make_ifid_bubble();
+            }
+        }
+
+        // Older EX-stage redirects, such as traps and MRET, have priority over
+        // any younger ID-stage redirect.
         if (next_ex_mem.valid && next_ex_mem.data.branch_taken) {
             next_pc = next_ex_mem.data.next_pc;
 
@@ -1372,7 +1547,8 @@ void riscv_step(volatile uint32_t* imem, volatile uint32_t* dmem,
         bool trap_exit = false;
 #endif
 
-        if (trap_exit ||
+        if (is_finished ||
+            trap_exit ||
             (max_cycles > 0 && (int)(ap_uint<32>)csr_mcycle >= max_cycles)) {
             *cycles_output = (int)(ap_uint<32>)csr_mcycle;
             return;

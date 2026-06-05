@@ -39,7 +39,7 @@ int main() {
     std::memset(imem, 0, sizeof(imem));
     std::memset(dmem, 0, sizeof(dmem));
 
-    CORE_DEBUG = true;
+    CORE_DEBUG = false;
 
     const uint32_t entry_pc = 0;
 
