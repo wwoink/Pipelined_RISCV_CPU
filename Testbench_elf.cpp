@@ -51,7 +51,7 @@ extern void riscv_step(
 );
 
 int main(int argc, char* argv[]) {
-    const char* elf_filename = "qsort.riscv";
+    const char* elf_filename = "memcpy.riscv";
     if (argc > 1) {
         elf_filename = argv[1];
     }
