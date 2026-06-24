@@ -19,11 +19,21 @@ bool CORE_DEBUG = true;
 // Global Configuration Switch
 // ------------------------------------------------------------
 // If false, the M-extension logic is completely pruned during synthesis.
-const bool ENABLE_M_EXTENSION = true;
+const bool ENABLE_M_EXTENSION = false;
 const bool ENABLE_A_EXTENSION = true; // Toggle for Atomics
 
 #define ENABLE_FORWARDING 1
 #define EXIT_ON_TRAP 0
+
+// Enable for RISC-V ISA tests and ELF benchmarks that report completion
+// through an odd value written to 0x80001000 <tohost>.
+// Disable for Linux or other programs that may use 0x80001000 normally.
+#define ENABLE_TOHOST_EXIT 1
+
+// Enable for ELF benchmarks that use HTIF requests during C-simulation or
+// RTL co-simulation. An even write to <tohost> is acknowledged by writing 1
+// to <fromhost> at 0x80001040. Disable for Linux and normal FPGA deployment.
+#define ENABLE_HTIF_EMULATION 1
 
 // ------------------------------------------------------------
 // Inter-Stage Data Structs
@@ -516,14 +526,50 @@ ExecOut execute(const DecodeOut& d) {
             break;
     }
     case 0x03: { // Load
-            e.alu_result = rs1_val + d.imm;
-            e.mem_read   = true;
-            e.reg_write  = true;
+            ap_int<32> addr = rs1_val + d.imm;
+
+            // Alignment check: LW needs 4-byte, LH/LHU need 2-byte alignment.
+            // LB/LBU are always aligned. Misaligned loads trap (mcause 4).
+            unsigned align_mask = 0;
+            if (d.funct3 == 0x2)                          align_mask = 0x3; // LW
+            else if (d.funct3 == 0x1 || d.funct3 == 0x5)  align_mask = 0x1; // LH/LHU
+
+            if (((unsigned)addr & align_mask) != 0) {
+                e.is_trap      = true;
+                e.reg_write    = false;
+                csr_mepc       = d.pc;
+                csr_mcause     = 4;               // Load address misaligned
+                csr_mtval      = (ap_uint<32>)addr;
+                e.next_pc      = csr_mtvec;
+                e.branch_taken = true;
+            } else {
+                e.alu_result = addr;
+                e.mem_read   = true;
+                e.reg_write  = true;
+            }
             break;
     }
     case 0x23: { // Store
-            e.alu_result = rs1_val + d.imm;
-            e.mem_write  = true;
+            ap_int<32> addr = rs1_val + d.imm;
+
+            // Alignment check: SW needs 4-byte, SH needs 2-byte alignment.
+            // SB is always aligned. Misaligned stores trap (mcause 6).
+            unsigned align_mask = 0;
+            if (d.funct3 == 0x2)       align_mask = 0x3; // SW
+            else if (d.funct3 == 0x1)  align_mask = 0x1; // SH
+
+            if (((unsigned)addr & align_mask) != 0) {
+                e.is_trap      = true;
+                e.reg_write    = false;
+                csr_mepc       = d.pc;
+                csr_mcause     = 6;               // Store/AMO address misaligned
+                csr_mtval      = (ap_uint<32>)addr;
+                e.next_pc      = csr_mtvec;
+                e.branch_taken = true;
+            } else {
+                e.alu_result = addr;
+                e.mem_write  = true;
+            }
             break;
     }
     case 0x63: { // Branch
@@ -822,17 +868,13 @@ MemOut memory(volatile uint32_t* dmem, const ExecOut& e) {
         } else 
         #endif
         {
+            // Aligned access: the addressed element lives entirely within
+            // word0. byte_off only selects the byte/halfword lane for
+            // LB/LBU/LH/LHU; it never crosses into the next word.
             uint32_t raw_w0 = dmem[d_idx];
-            #ifdef __SYNTHESIS__
-            uint32_t raw_w1 = (uint32_t)dmem[d_idx + 1];
-            #else
-            uint32_t raw_w1 = (d_idx + 1 < RAM_SIZE) ? (uint32_t)dmem[d_idx + 1] : 0;
-            #endif
-
             ap_uint<32> word0 = (ap_uint<32>)raw_w0;
-            ap_uint<32> word1 = (ap_uint<32>)raw_w1;
-            
-            ap_uint<32> raw_val_32 = (word0 >> (byte_off * 8)) | (word1 << ((4 - byte_off) * 8));
+
+            ap_uint<32> raw_val_32 = word0 >> (byte_off * 8);
             ap_int<32> loaded_val = 0;
             m.reg_write = true;
 
@@ -895,60 +937,83 @@ MemOut memory(volatile uint32_t* dmem, const ExecOut& e) {
         } else 
         #endif
         {
-            // Read-Modify-Write
+            // Aligned access: the stored element lives entirely within word0,
+            // so a single read-modify-write of one word suffices. byte_off only
+            // selects the byte/halfword lane for SB/SH; SW always lands at
+            // byte_off == 0.
             uint32_t raw_w0 = dmem[d_idx];
             ap_uint<32> word0 = (ap_uint<32>)raw_w0;
-            
+
             ap_uint<32> store_val = (ap_uint<32>)e.store_val;
             ap_uint<32> mask0 = 0;
-            ap_uint<32> mask1 = 0;
-            
+
             switch ((unsigned)e.funct3) {
-                case 0: // SB
-                    mask0 = 0xFF << (byte_off * 8);
-                    break;
-                case 1: { // SH
-                    ap_uint<64> full_mask = (ap_uint<64>)0xFFFF << (byte_off * 8);
-                    mask0 = full_mask.range(31, 0);
-                    mask1 = full_mask.range(63, 32);
-                    break;
-                }
-                case 2: { // SW
-                    ap_uint<64> full_mask = (ap_uint<64>)0xFFFFFFFF << (byte_off * 8);
-                    mask0 = full_mask.range(31, 0);
-                    mask1 = full_mask.range(63, 32);
-                    break;
-                }
+                case 0: mask0 = (ap_uint<32>)0xFF   << (byte_off * 8); break; // SB
+                case 1: mask0 = (ap_uint<32>)0xFFFF << (byte_off * 8); break; // SH
+                case 2: mask0 = 0xFFFFFFFF;                            break; // SW
             }
 
-            // Modify Word 0
+            // Modify the single addressed word.
             word0 = (word0 & ~mask0) | ((store_val << (byte_off * 8)) & mask0);
             dmem[d_idx] = (uint32_t)word0;
 
-            // Modify Word 1 (Boundary Crossing)
-            #ifdef __SYNTHESIS__
-            if (mask1 != 0) {
-            #else
-            if (mask1 != 0 && d_idx + 1 < RAM_SIZE) {
-            #endif
-                uint32_t raw_w1 = dmem[d_idx + 1];
-                ap_uint<32> word1 = (ap_uint<32>)raw_w1;
-                
-                word1 = (word1 & ~mask1) | ((store_val >> ((4-byte_off)*8)) & mask1);
-                dmem[d_idx + 1] = (uint32_t)word1; 
-            }
-            
             // ----------------------------------------------------------------
-            // HTIF INTERCEPTOR (Prevents Syscall Deadlock - Sim Only)
+            // OPTIONAL HTIF / TOHOST COMPLETION DETECTOR
             // ----------------------------------------------------------------
-            #ifndef __SYNTHESIS__
-            if (phys_ea == 0x1000) {
-                unsigned fromhost_idx = d_idx + 16; 
-                if (fromhost_idx < RAM_SIZE) {
-                    dmem[fromhost_idx] = 1; 
+            // Standard RISC-V tests and ELF benchmarks report final completion
+            // by writing an odd value to 0x80001000 <tohost>:
+            //   0x1                  -> pass
+            //   (exit_code << 1) | 1 -> fail
+            //
+            // Some programs also write even HTIF request values to tohost
+            // during normal execution. Those must not stop the core.
+            //
+            // Disable ENABLE_TOHOST_EXIT when running Linux or any program
+            // that may use 0x80001000 as ordinary memory.
+#if ENABLE_TOHOST_EXIT
+            if (ea_u == 0x80001000 &&
+                (((ap_uint<32>)e.store_val & 1) != 0)) {
+
+                is_finished = true;
+
+                if (CORE_DEBUG) {
+                    std::cout << "[TOHOST] Completion write detected: 0x"
+                              << std::hex << (unsigned)(ap_uint<32>)e.store_val
+                              << std::dec << "\n";
                 }
             }
-            #endif
+#endif
+
+            // ----------------------------------------------------------------
+            // OPTIONAL HTIF HOST EMULATION
+            // ----------------------------------------------------------------
+            // Some ELF benchmarks write an even request value to
+            // 0x80001000 <tohost>, then poll 0x80001040 <fromhost> until the
+            // simulated host acknowledges the request. This logic must also
+            // be synthesized for RTL co-simulation, so it is not hidden by
+            // __SYNTHESIS__.
+#if ENABLE_HTIF_EMULATION
+            if (ea_u == 0x80001000 &&
+                (((ap_uint<32>)e.store_val & 1) == 0)) {
+
+                const unsigned fromhost_idx = addr_to_idx(0x80001040);
+
+#ifndef __SYNTHESIS__
+                if (fromhost_idx < RAM_SIZE) {
+                    dmem[fromhost_idx] = 1;
+                }
+#else
+                dmem[fromhost_idx] = 1;
+#endif
+
+                if (CORE_DEBUG) {
+                    std::cout << "[HTIF] Request 0x"
+                              << std::hex << (unsigned)(ap_uint<32>)e.store_val
+                              << " acknowledged through fromhost"
+                              << std::dec << "\n";
+                }
+            }
+#endif
             // ----------------------------------------------------------------
             
             if(CORE_DEBUG) std::cout << "[MEM] Stored 0x" << std::hex << (int)e.store_val << " to 0x" << ea_u << std::dec << "\n";
@@ -1491,7 +1556,8 @@ void riscv_step(volatile uint32_t* imem, volatile uint32_t* dmem,
         bool trap_exit = false;
 #endif
 
-        if (trap_exit ||
+        if (is_finished ||
+            trap_exit ||
             (max_cycles > 0 && (int)(ap_uint<32>)csr_mcycle >= max_cycles)) {
             *cycles_output = (int)(ap_uint<32>)csr_mcycle;
             return;

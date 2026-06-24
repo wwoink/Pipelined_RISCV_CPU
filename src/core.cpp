@@ -300,28 +300,67 @@ void csr_write(unsigned addr, ap_uint<32> val) {
 }
 
 // ------------------------------------------------------------
+// Instruction Line Buffer
+// ------------------------------------------------------------
+// Each fetch would otherwise be a single-beat m_axi read of one word, and
+// because the instruction loop is not pipelined those round-trips are fully
+// serialized -- one AXI latency per instruction. This buffer fills a whole
+// line (FETCH_LINE_WORDS words) in one burst on a miss, then serves sequential
+// PCs from on-chip storage with no bus traffic until the line is exhausted or
+// a redirect jumps outside it. Straight-line code and tight loops that fit in
+// a line drop from one AXI read per instruction to one burst per line.
+//
+// Assumes imem is read-only during execution (stores target the separate dmem
+// bundle, so there is no self-modifying code through this port). The line is
+// reset at the start of riscv_step; FENCE.I is a no-op here for that reason.
+#define FETCH_LINE_WORDS 16                 // 64-byte line, must be power of 2
+#define FETCH_LINE_MASK  (FETCH_LINE_WORDS - 1)
+
+static ap_uint<32> ic_line[FETCH_LINE_WORDS]; // cached line contents
+static unsigned     ic_base_idx = 0;          // word index of ic_line[0]
+static bool         ic_valid    = false;      // is ic_line populated?
+
+// ------------------------------------------------------------
 // Stage: Fetch
 // ------------------------------------------------------------
 FetchOut fetch(volatile uint32_t* imem, ap_uint<32> fetch_pc) {
     #pragma HLS INLINE off
     FetchOut f;
-    
-    unsigned im_idx = addr_to_idx((unsigned)fetch_pc);
-    
-    #ifdef __SYNTHESIS__
-        f.instr = (ap_uint<32>)imem[im_idx];
-    #else
-        if (im_idx < RAM_SIZE) {
-            f.instr = (ap_uint<32>)imem[im_idx];
-        } else {
-            f.instr = 0;
-        }
-    #endif
     f.pc = fetch_pc;
+
+    unsigned im_idx    = addr_to_idx((unsigned)fetch_pc);
+    unsigned line_base = im_idx & ~((unsigned)FETCH_LINE_MASK); // align down
+    unsigned line_off  = im_idx &  ((unsigned)FETCH_LINE_MASK);
+
+    // Miss: the requested word is not in the current line. Refill in one
+    // contiguous pass so HLS can infer an AXI burst read.
+    if (!ic_valid || line_base != ic_base_idx) {
+        // Read the line through a NON-volatile view of imem. The interface is
+        // declared volatile (so MMIO-style accesses stay un-coalesced), but a
+        // volatile access cannot be merged into a burst -- it forces one
+        // serialized single-beat read per word. Casting volatile away here lets
+        // HLS coalesce the contiguous refill into a single AXI burst. Safe
+        // because imem is read-only during execution.
+        uint32_t* isrc = const_cast<uint32_t*>(imem);
+
+        FILL_LINE: for (int i = 0; i < FETCH_LINE_WORDS; i++) {
+            #pragma HLS PIPELINE II=1
+            unsigned idx = line_base + i;
+            #ifdef __SYNTHESIS__
+            ic_line[i] = (ap_uint<32>)isrc[idx];
+            #else
+            ic_line[i] = (idx < RAM_SIZE) ? (ap_uint<32>)isrc[idx] : (ap_uint<32>)0;
+            #endif
+        }
+        ic_base_idx = line_base;
+        ic_valid    = true;
+    }
+
+    f.instr = ic_line[line_off];
 
     if(CORE_DEBUG) {
         std::cout << "\n------------------------------------------------------------\n";
-        std::cout << "[FETCH] PC=0x" << std::hex << (unsigned)fetch_pc 
+        std::cout << "[FETCH] PC=0x" << std::hex << (unsigned)fetch_pc
                   << " Instr=0x" << (unsigned)f.instr << std::dec << "\n";
     }
     return f;
@@ -744,11 +783,23 @@ MemOut memory(volatile uint32_t* dmem, const ExecOut& e) {
         reg_write = false; 
     }
 
-    m.value     = e.alu_result;  
+    m.value     = e.alu_result;
     m.rd        = e.rd;
     m.reg_write = reg_write;
 
-    unsigned ea_u    = (unsigned)e.alu_result; 
+    // -------------------------------------------------------------
+    // FAST PATH: non-memory instruction
+    // -------------------------------------------------------------
+    // ALU/branch/CSR/etc. produce their result in m.value above and never
+    // touch dmem. Return immediately so the scheduler has a path with no
+    // m_axi access, instead of budgeting every iteration for the worst-case
+    // AXI read/write latency. Trapping loads/stores are also caught here
+    // (mem_read/mem_write were cleared on trap), keeping them off the bus.
+    if (!e.is_atomic && !mem_read && !mem_write) {
+        return m;
+    }
+
+    unsigned ea_u    = (unsigned)e.alu_result;
     unsigned phys_ea = ea_u & 0x07FFFFFF;        // Used for CLINT MMIO checks
     unsigned d_idx   = addr_to_idx(ea_u);        // Synthesis: ea_u>>2, Sim: array-relative
     unsigned byte_off = ea_u & 0x3;
@@ -1465,6 +1516,10 @@ void riscv_step(volatile uint32_t* imem, volatile uint32_t* dmem,
 
     is_finished = false;
 
+    // Invalidate the instruction line buffer so the first fetch refills it.
+    ic_valid    = false;
+    ic_base_idx = 0;
+
     // ---------------- Pipeline Registers ----------------
     IFIDReg  if_id  = make_ifid_bubble();
     IDEXReg  id_ex  = make_idex_bubble();
@@ -1481,7 +1536,13 @@ void riscv_step(volatile uint32_t* imem, volatile uint32_t* dmem,
         // =====================================================
         if (mem_wb.valid) {
             writeback(mem_wb.data);
-            csr_minstret++;
+
+            // Count only instructions that actually retire. A trapping
+            // instruction (ECALL/EBREAK, illegal instruction, misaligned
+            // load/store) does not complete, so it must not bump minstret.
+            if (!mem_wb.data.is_trap) {
+                csr_minstret++;
+            }
         }
 
         // =====================================================
