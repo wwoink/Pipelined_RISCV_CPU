@@ -765,6 +765,121 @@ ExecOut execute(const DecodeOut& d) {
 }
 
 // ------------------------------------------------------------
+// Data Cache
+// ------------------------------------------------------------
+// Direct-mapped, write-back, write-allocate cache in front of the dmem AXI
+// port. Only the normal RAM region is cached; MMIO (UART/CLINT) keeps its
+// existing bypass in memory(). A miss fills a line with one burst; evicting a
+// dirty line writes it back with one burst. All dirty lines are flushed to
+// dmem before riscv_step returns, so the final memory image (and <tohost>,
+// which the testbench reads back) is correct.
+//
+// Geometry: 64 sets x 16 words = 4 KB. The post-translation word index d_idx
+// is split as [ tag | set(6) | word(4) ].
+#define DC_LINE_WORDS 16
+#define DC_LINE_BITS  4
+#define DC_LINE_MASK  (DC_LINE_WORDS - 1)
+#define DC_NUM_SETS   64
+#define DC_SET_BITS   6
+#define DC_SET_MASK   (DC_NUM_SETS - 1)
+
+static ap_uint<32> dc_data[DC_NUM_SETS][DC_LINE_WORDS]; // 4 KB line storage
+static unsigned    dc_tag[DC_NUM_SETS];
+static bool        dc_valid[DC_NUM_SETS];
+static bool        dc_dirty[DC_NUM_SETS];
+
+static void dcache_reset() {
+    #pragma HLS INLINE off
+    for (unsigned s = 0; s < DC_NUM_SETS; s++) {
+        #pragma HLS PIPELINE II=1
+        dc_valid[s] = false;
+        dc_dirty[s] = false;
+        dc_tag[s]   = 0;
+    }
+}
+
+// Make 'set' hold the line containing word index d_idx, writing back the
+// current occupant first if it is dirty.
+static void dcache_refill(volatile uint32_t* dmem, unsigned set, unsigned tag,
+                          unsigned d_idx) {
+    #pragma HLS INLINE off
+    uint32_t* mem = const_cast<uint32_t*>(dmem); // non-volatile view for bursts
+
+    // Write back the dirty victim line.
+    if (dc_valid[set] && dc_dirty[set]) {
+        unsigned wb_base = (((dc_tag[set] << DC_SET_BITS) | set) << DC_LINE_BITS);
+        WB_LINE: for (int i = 0; i < DC_LINE_WORDS; i++) {
+            #pragma HLS PIPELINE II=1
+            unsigned idx = wb_base + i;
+            #ifndef __SYNTHESIS__
+            if (idx < RAM_SIZE)
+            #endif
+                mem[idx] = (uint32_t)dc_data[set][i];
+        }
+    }
+
+    // Fill the requested line.
+    unsigned fill_base = d_idx & ~((unsigned)DC_LINE_MASK);
+    FILL_DLINE: for (int i = 0; i < DC_LINE_WORDS; i++) {
+        #pragma HLS PIPELINE II=1
+        unsigned idx = fill_base + i;
+        #ifdef __SYNTHESIS__
+        dc_data[set][i] = (ap_uint<32>)mem[idx];
+        #else
+        dc_data[set][i] = (idx < RAM_SIZE) ? (ap_uint<32>)mem[idx] : (ap_uint<32>)0;
+        #endif
+    }
+    dc_tag[set]   = tag;
+    dc_valid[set] = true;
+    dc_dirty[set] = false;
+}
+
+static ap_uint<32> dcache_read_word(volatile uint32_t* dmem, unsigned d_idx) {
+    #pragma HLS INLINE off
+    unsigned off = d_idx & DC_LINE_MASK;
+    unsigned set = (d_idx >> DC_LINE_BITS) & DC_SET_MASK;
+    unsigned tag = d_idx >> (DC_LINE_BITS + DC_SET_BITS);
+    if (!dc_valid[set] || dc_tag[set] != tag) {
+        dcache_refill(dmem, set, tag, d_idx);
+    }
+    return dc_data[set][off];
+}
+
+static void dcache_write_word(volatile uint32_t* dmem, unsigned d_idx,
+                              ap_uint<32> val) {
+    #pragma HLS INLINE off
+    unsigned off = d_idx & DC_LINE_MASK;
+    unsigned set = (d_idx >> DC_LINE_BITS) & DC_SET_MASK;
+    unsigned tag = d_idx >> (DC_LINE_BITS + DC_SET_BITS);
+    if (!dc_valid[set] || dc_tag[set] != tag) {
+        dcache_refill(dmem, set, tag, d_idx); // write-allocate
+    }
+    dc_data[set][off] = val;
+    dc_dirty[set]     = true;
+}
+
+// Write all dirty lines back to dmem. Called before riscv_step returns so the
+// committed memory image (including <tohost>/<fromhost>) is complete.
+static void dcache_flush(volatile uint32_t* dmem) {
+    #pragma HLS INLINE off
+    uint32_t* mem = const_cast<uint32_t*>(dmem);
+    for (unsigned set = 0; set < DC_NUM_SETS; set++) {
+        if (dc_valid[set] && dc_dirty[set]) {
+            unsigned wb_base = (((dc_tag[set] << DC_SET_BITS) | set) << DC_LINE_BITS);
+            FLUSH_LINE: for (int i = 0; i < DC_LINE_WORDS; i++) {
+                #pragma HLS PIPELINE II=1
+                unsigned idx = wb_base + i;
+                #ifndef __SYNTHESIS__
+                if (idx < RAM_SIZE)
+                #endif
+                    mem[idx] = (uint32_t)dc_data[set][i];
+            }
+            dc_dirty[set] = false;
+        }
+    }
+}
+
+// ------------------------------------------------------------
 // Stage: Memory
 // ------------------------------------------------------------
 MemOut memory(volatile uint32_t* dmem, const ExecOut& e) {
@@ -814,7 +929,7 @@ MemOut memory(volatile uint32_t* dmem, const ExecOut& e) {
         } else 
         #endif
         {
-            uint32_t loaded_raw = dmem[d_idx];
+            ap_uint<32> loaded_raw = dcache_read_word(dmem, d_idx);
             ap_int<32> loaded_val = (ap_int<32>)loaded_raw;
             ap_int<32> write_val = 0;
             bool do_write = false;
@@ -860,8 +975,8 @@ MemOut memory(volatile uint32_t* dmem, const ExecOut& e) {
             }
 
             if (do_write) {
-                dmem[d_idx] = (uint32_t)write_val;
-                lr_valid = false; 
+                dcache_write_word(dmem, d_idx, (ap_uint<32>)write_val);
+                lr_valid = false;
             }
         }
     }
@@ -922,8 +1037,7 @@ MemOut memory(volatile uint32_t* dmem, const ExecOut& e) {
             // Aligned access: the addressed element lives entirely within
             // word0. byte_off only selects the byte/halfword lane for
             // LB/LBU/LH/LHU; it never crosses into the next word.
-            uint32_t raw_w0 = dmem[d_idx];
-            ap_uint<32> word0 = (ap_uint<32>)raw_w0;
+            ap_uint<32> word0 = dcache_read_word(dmem, d_idx);
 
             ap_uint<32> raw_val_32 = word0 >> (byte_off * 8);
             ap_int<32> loaded_val = 0;
@@ -992,8 +1106,7 @@ MemOut memory(volatile uint32_t* dmem, const ExecOut& e) {
             // so a single read-modify-write of one word suffices. byte_off only
             // selects the byte/halfword lane for SB/SH; SW always lands at
             // byte_off == 0.
-            uint32_t raw_w0 = dmem[d_idx];
-            ap_uint<32> word0 = (ap_uint<32>)raw_w0;
+            ap_uint<32> word0 = dcache_read_word(dmem, d_idx);
 
             ap_uint<32> store_val = (ap_uint<32>)e.store_val;
             ap_uint<32> mask0 = 0;
@@ -1006,7 +1119,7 @@ MemOut memory(volatile uint32_t* dmem, const ExecOut& e) {
 
             // Modify the single addressed word.
             word0 = (word0 & ~mask0) | ((store_val << (byte_off * 8)) & mask0);
-            dmem[d_idx] = (uint32_t)word0;
+            dcache_write_word(dmem, d_idx, word0);
 
             // ----------------------------------------------------------------
             // OPTIONAL HTIF / TOHOST COMPLETION DETECTOR
@@ -1048,14 +1161,7 @@ MemOut memory(volatile uint32_t* dmem, const ExecOut& e) {
                 (((ap_uint<32>)e.store_val & 1) == 0)) {
 
                 const unsigned fromhost_idx = addr_to_idx(0x80001040);
-
-#ifndef __SYNTHESIS__
-                if (fromhost_idx < RAM_SIZE) {
-                    dmem[fromhost_idx] = 1;
-                }
-#else
-                dmem[fromhost_idx] = 1;
-#endif
+                dcache_write_word(dmem, fromhost_idx, 1);
 
                 if (CORE_DEBUG) {
                     std::cout << "[HTIF] Request 0x"
@@ -1520,6 +1626,9 @@ void riscv_step(volatile uint32_t* imem, volatile uint32_t* dmem,
     ic_valid    = false;
     ic_base_idx = 0;
 
+    // Invalidate the data cache so it starts cold (no stale/dirty lines).
+    dcache_reset();
+
     // ---------------- Pipeline Registers ----------------
     IFIDReg  if_id  = make_ifid_bubble();
     IDEXReg  id_ex  = make_idex_bubble();
@@ -1620,6 +1729,9 @@ void riscv_step(volatile uint32_t* imem, volatile uint32_t* dmem,
         if (is_finished ||
             trap_exit ||
             (max_cycles > 0 && (int)(ap_uint<32>)csr_mcycle >= max_cycles)) {
+            // Commit any dirty cache lines to dmem so the final memory image
+            // (and <tohost>, which the testbench reads) is complete.
+            dcache_flush(dmem);
             *cycles_output = (int)(ap_uint<32>)csr_mcycle;
             return;
         }
