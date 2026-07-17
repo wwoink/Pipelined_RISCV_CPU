@@ -19,7 +19,7 @@ In the **Sources** view, confirm these are added:
   
 In **Test Bench**:
 
-- Your testbench (e.g., `Testbench_elf_batch.cpp`, `Testbench_elf`, or `Testbench_HardCoded` )
+- Your testbench (e.g., `Testbench_elf_batch.cpp`, `Testbench_elf`, or `Testbench_HardCoded` ) (Testbench_elf is the only one that should be used at the moment)
 
 If anything is missing, **Add Sources** (right-click **Sources → Add Files…**).
 
@@ -45,9 +45,9 @@ Aso put this under the C testbench CFLAGS section (These should be here from the
 
 In the **Flow** or **Flow Navigator** panel, click **C Simulation ▶ Run**.
 
-If your arguments are correct, the tests will execute and print **SUMMARY: _ Passed, _ Failed** lines from the testbench.  
-For the Bath verison we can see each test and if it passed or failed. If it failed then the error code will be next to it.
-Some tests timeout. This is becuae they do not finish in the alloted cycles. This would be an equivolent of failing.
+If your arguments are correct, the tests will execute and print **SUMMARY: _ Passed, _ Failed** lines from the testbench.
+All tests should be passing that are included here. It is importatnt that each .riscv file is included as a testbench file. This is different from the non-pipelined version,
+but it makes it easier with the paths.
 
 The regular and hardcoded testbenchs are similar and will also print PASS or FAIL with the error code.
 
@@ -67,8 +67,8 @@ This will generate the actual VHDL and Verilog files. These can be found in the 
 
 ### 6) Run C/RTL COSIM
 
-This is **only** ment to be run with the hardcoded benchmark. This is to do with the need for an abosolute path as the files are located in a different spot than the argument used previously.
-It is easy to change the abosolute path in the testbench to test other benchmarks.
+This is **only** ment to be run with `Testbench_elf` Test Bench. This is to do with the need for an abosolute path as the files are located in a different spot than the argument used previously.
+It is easy to change the abosolute path in the testbench to test other benchmarks. Just like in the C-sim, all of the Benchmarks need to be included as testbench files.
 
 In the **Flow** or **Flow Navigator** panel, click **C/RTL COSIMULATION ▶ Run**.
 
@@ -81,6 +81,29 @@ This is a good sign as all of the other tests pass the CSIM and these tests are 
 ---
 
 
-## 7) Package and Implementation
+## 7) Results
+### core.cpp — Pipelined Implementation, Inline Off, Simple Cache Line + D-RAM Cache (Utilizes FPGA DDR memory)
 
-These do run but I have not had time to look into them deeper. 
+| Benchmark | Start Clock | End Clock | Total Cycles | # Instructions | Stall  | RTL CPI    | CLK      |
+|-----------|-------------|-----------|--------------|-----------------|--------|------------|----------|
+| QSORT     | 39          | 5013509   | 5013470      | 233942          | 102013 | 21.43039728 | 273.97MHz |
+| TOWERS    | 39          | 290145    | 290106       | 11938           | 2676   | 24.30105545 | 273.97MHz |
+| MEMCPY    | 39          | 746602    | 746563       | 37074           | 4629   | 20.13710417 | 273.97MHz |
+| MULTIPLY  | 39          | 926685    | 926646       | 60594           | 8584   | 15.29270225 | 273.97MHz |
+| RSORT     | 39          | 8441249   | 8441210      | 372918          | 21706  | 22.635566   | 273.97MHz |
+| DHRYSTONE | 39          | 5167805   | 5167766      | 231368          | 45786  | 22.33569897 | 273.97MHz |
+| VVADD     | 39          | 256473    | 256434       | 11072           | 2048   | 23.16058526 | 273.97MHz |
+| MEDIAN    | 39          | 359330    | 359291       | 15427           | 4095   | 23.28975173 | 273.97MHz |
+
+### onchip_core.cpp — Pipelined Implementation, Onchip Memory Only
+
+| Benchmark | Start Clock | End Clock | Total Cycles | # Instructions | Stall  | RTL CPI    | CLK      |
+|-----------|-------------|-----------|--------------|-----------------|--------|------------|----------|
+| QSORT     | 39          | 1679854   | 1679815      | 233942          | 102013 | 7.180476357 | 303.34MHz |
+| TOWERS    | 39          | 73149     | 73110        | 11938           | 2676   | 6.124141397 | 303.34MHz |
+| MEMCPY    | 39          | 208594    | 208555       | 37074           | 4629   | 5.62537088  | 303.34MHz |
+| MULTIPLY  | 39          | 345969    | 345930       | 60594           | 8584   | 5.708981087 | 303.34MHz |
+| RSORT     | 39          | 1973199   | 1973160      | 372918          | 21706  | 5.291136907 | 303.34MHz |
+| DHRYSTONE | 39          | 1385849   | 1385810      | 231368          | 45786  | 5.989635559 | 303.34MHz |
+| VVADD     | 39          | 65679     | 65640        | 11072           | 2048   | 5.928468208 | 303.34MHz |
+| MEDIAN    | 39          | 97509     | 97470        | 15427           | 4095   | 6.318143515 | 303.34MHz |
